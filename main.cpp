@@ -1,10 +1,11 @@
 #include <iostream>
 #include "Unit.h"
 #include "Factory.h"
+//#include "Cell.h"
 
-void fullAttack(Unit*, Unit*, short);
+void fullAttack(Unit*, Unit*);
 Factory* getDepartment(const std::string &);
-
+ 
 int main(int argv, char* argc[])
 { 
   std::string unitType = "cavalry";
@@ -16,11 +17,12 @@ int main(int argv, char* argc[])
   //std::cin >> steps;
   //std::cout << std::endl;
 
-  int health_0 = 200; int damage_0 = 50;
+  int health_0 = 200; int damage_0 = 20;
   
   std::cout << "\nНачальные значения health & damage:" << std::endl;
   std::cout << "health_0 = " << health_0 << std::endl;
   std::cout << "damage_0 = " << damage_0 << std::endl;
+  std::cout << std::endl;
   
   Factory factory; factory.addDepartment(getDepartment(unitType));
   
@@ -34,11 +36,11 @@ int main(int argv, char* argc[])
   std::cout << "Health unit_2 (victim) = " << ptr_unit2->getHealth() << std::endl;
   std::cout << "Damage unit_2 (victim) = " << ptr_unit2->getDamage() << std::endl;
   
-  fullAttack(ptr_unit, ptr_unit2, 3);
+  fullAttack(ptr_unit, ptr_unit2);
   //delete ptr_unit2;
   ptr_unit2 = nullptr;
   //delete ptr_unit;
   ptr_unit = nullptr;
-  
+  std::cout << std::endl;
   return 0;
 }

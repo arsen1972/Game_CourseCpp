@@ -39,10 +39,11 @@ void Unit::move(int)
 // **************************************************** attack(Unit*)
 void Unit::attack(Unit* ptr_victim)
 { 
+  int bonus = this->land->getLandscape("medic", "sea");
   std::cout << "\n **********************************   The attack has begin   *****" << std::endl;
-  std::cout << "landscape = " << this->land.getLandscape() << std::endl;
-  std::cout << "Current damage = damage + landscape =  " << this->land.getLandscape() + this->damage << std::endl;
-  ptr_victim->setHealth((ptr_victim->getHealth()) - (this->damage + (this->land.getLandscape())));
+  std::cout << "bonus = " << bonus << std::endl;
+  std::cout << "Current damage = damage + bonus =  " << bonus + this->damage << std::endl;
+  ptr_victim->setHealth((ptr_victim->getHealth()) - (this->damage + bonus));
   
   this->health = this->health - (this->damage)/10;
     

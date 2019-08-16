@@ -18,6 +18,6 @@ public:
 private:
   int health;
   int damage;
-  Cell land;
+  Cell* land;
 };
 
