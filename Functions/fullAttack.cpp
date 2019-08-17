@@ -4,7 +4,7 @@
 //******************************************************************  fullAttack()  
 void fullAttack(Unit* ptr_aggressor, Unit* ptr_victim)
 {    
-  while ((ptr_victim != nullptr) || (ptr_aggressor != nullptr)) 
+  while ((ptr_victim != nullptr) && (ptr_aggressor != nullptr)) 
   {
     ptr_aggressor->attack(ptr_victim);
     std::cout << "Health unit_1 (aggressor) = " << ptr_aggressor->getHealth() << std::endl;
