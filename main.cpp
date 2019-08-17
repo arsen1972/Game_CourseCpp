@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Unit.h"
-#include "Factory.h"
-//#include "Cell.h"
+#include "Unit/Unit.h"
+#include "Factory/Factory.h"
+//#include "Cell/Cell.h"
 
 void fullAttack(Unit*, Unit*);
 Factory* getDepartment(const std::string &);

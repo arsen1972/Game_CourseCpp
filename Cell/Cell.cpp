@@ -1,10 +1,9 @@
 #include <iostream>
 #include <string>
 #include "Cell.h"
-//#include <map>
 
 // **************************************************** Cell()
-Cell::Cell() //: landscape(10)
+Cell::Cell()
 { //LOG_TRACE
 }
 
@@ -17,14 +16,14 @@ Cell::~Cell()
 int Cell::getLandscape(std::string unit, std::string land)
 { 
   int b_rows, b_col;
-  for(short i=0; i<3; i++)
+  for(short i=0; i<ROWS; i++)
   {
     if (land == Cell::landscape[i])
     { b_rows = i;
       break;
   } }
   
-  for(short i=0; i<4; i++)
+  for(short i=0; i<COLS; i++)
   { if (unit == Cell::unitType[i])
     { b_col = i;
       break;
@@ -34,7 +33,7 @@ int Cell::getLandscape(std::string unit, std::string land)
 }
 
 // **************************************************** bonus[][]
-int Cell::bonus[3][4] =
+int Cell::bonus[ROWS][COLS] =
 { {20, 30, 57, 100},
   {10, -2, 57, 0},
   {-45, -50, 57, -50} };

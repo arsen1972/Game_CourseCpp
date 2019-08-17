@@ -1,6 +1,6 @@
 #include "CavalryFactory.h"
-#include "Cavalry.h"
-#include "Unit.h"
+#include "../Unit/Cavalry.h"
+#include "../Unit/Unit.h"
 #include <string>
 #include <iostream>
 

@@ -1,6 +1,6 @@
 #include <string>
-#include "Factory.h"
-#include "CavalryFactory.h"
+#include "../Factory/Factory.h"
+#include "../Factory/CavalryFactory.h"
 
 Factory* getDepartment(const std::string& unitType)
 {

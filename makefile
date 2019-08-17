@@ -1,5 +1,22 @@
-cl: main.cpp getDepartment.cpp Unit.cpp Factory.cpp CavalryFactory.cpp Cavalry.cpp 
-	g++ -c main.cpp getDepartment.cpp fullAttack.cpp Unit.cpp Factory.cpp CavalryFactory.cpp Cavalry.cpp Cell.cpp 
+cl: 
+	g++ -c main.cpp 
+	g++ -c ./Functions/getDepartment.cpp ./Functions/fullAttack.cpp
+	g++ -c ./Unit/Unit.cpp ./Unit/Cavalry.cpp 
+	g++ -c ./Factory/Factory.cpp ./Factory/CavalryFactory.cpp
+	g++ -c ./Cell/Cell.cpp 
+		
 	g++ main.o getDepartment.o fullAttack.o Unit.o Factory.o CavalryFactory.o Cavalry.o Cell.o -o all	
-clean:
-	rm main.o getDepartment.o fullAttack.o Unit.o Factory.o Cavalry.o CavalryFactory.o Cell.o all
+
+del:
+	rm main.o getDepartment.o fullAttack.o Unit.o Factory.o CavalryFactory.o Cavalry.o Cell.o all
+	
+re-cl:
+	rm main.o getDepartment.o fullAttack.o Unit.o Factory.o CavalryFactory.o Cavalry.o Cell.o all
+	
+	g++ -c main.cpp 
+	g++ -c ./Functions/getDepartment.cpp ./Functions/fullAttack.cpp
+	g++ -c ./Unit/Unit.cpp ./Unit/Cavalry.cpp 
+	g++ -c ./Factory/Factory.cpp ./Factory/CavalryFactory.cpp
+	g++ -c ./Cell/Cell.cpp 
+		
+	g++ main.o getDepartment.o fullAttack.o Unit.o Factory.o CavalryFactory.o Cavalry.o Cell.o -o all
