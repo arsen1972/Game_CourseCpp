@@ -9,10 +9,10 @@ class Cell
 public:
    Cell();
    ~Cell();
-   int getLandscape(std::string, std::string);
+   int getBonus(std::string, std::string);
   
 private:
-  int lands;
+  int lands; // std::string lands;
   static int bonus [][COLS];
   static std::string landscape[];
   static std::string unitType[];
