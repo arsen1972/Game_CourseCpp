@@ -11,6 +11,5 @@ public:
   ~CavalryFactory();
   Unit* getUnit(const std::string &);
   Unit* getUnit(const std::string &, const int, const int);
-  
 
 };

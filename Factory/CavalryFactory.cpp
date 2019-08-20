@@ -16,7 +16,6 @@ CavalryFactory::~CavalryFactory()
   //std::cout << "~Stable destroyed" << std::endl;
 }
 
-
 Unit* CavalryFactory::getUnit(const std::string& unitType)
 {
   Unit* ptr_unit = nullptr;
@@ -27,7 +26,6 @@ Unit* CavalryFactory::getUnit(const std::string& unitType)
   return ptr_unit;
 }
 
-
 Unit* CavalryFactory::getUnit(const std::string& unitType, int h, int d)
 {
   Unit* ptr_unit = nullptr;
@@ -37,3 +35,14 @@ Unit* CavalryFactory::getUnit(const std::string& unitType, int h, int d)
   }
   return ptr_unit;
 }
+/*
+Unit* CavalryFactory::getUnit(const std::string& unitType, int h, int d, std::string& c)
+{
+  Unit* ptr_unit = nullptr;
+  if(unitType == "cavalry")
+  {
+    ptr_unit = new Cavalry(h, d, c);
+  }
+  return ptr_unit;
+}
+*/
