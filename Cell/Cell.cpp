@@ -5,13 +5,14 @@ using std::string;
 
 // **************************************************** Cell()
 Cell::Cell()
-{ this->lands = "empty";
+{ this->lands = "sea";
 //LOG_TRACE
 }
 // **************************************************** Cell(string)
-Cell::Cell(string l = "empty") : lands(l)
+Cell::Cell(string l)
 { 
   this->lands = l;
+  //LOG_TRACE
 }
 // **************************************************** ~Cell()
 Cell::~Cell()

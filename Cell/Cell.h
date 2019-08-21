@@ -7,7 +7,7 @@ class Cell
 {
 public:
    Cell();
-   Cell(string l);
+   Cell(string);
    ~Cell();
    string getLands() const;
   

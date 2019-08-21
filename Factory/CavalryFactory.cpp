@@ -1,8 +1,11 @@
+#include <string>
+#include <iostream>
+
 #include "CavalryFactory.h"
 #include "../Unit/Cavalry.h"
 #include "../Unit/Unit.h"
-#include <string>
-#include <iostream>
+#include "../Cell/Cell.h"
+
 
 CavalryFactory::CavalryFactory()
 {
@@ -16,33 +19,12 @@ CavalryFactory::~CavalryFactory()
   //std::cout << "~Stable destroyed" << std::endl;
 }
 
-Unit* CavalryFactory::getUnit(const std::string& unitType)
+Unit* CavalryFactory::getUnit(const std::string & unitType, int h, int d, bool def, Cell* c)
 {
   Unit* ptr_unit = nullptr;
   if(unitType == "cavalry")
   {
-    ptr_unit = new Cavalry();
+    ptr_unit = new Cavalry(h, d, def, c);
   }
   return ptr_unit;
 }
-
-Unit* CavalryFactory::getUnit(const std::string& unitType, int h, int d)
-{
-  Unit* ptr_unit = nullptr;
-  if(unitType == "cavalry")
-  {
-    ptr_unit = new Cavalry(h, d);
-  }
-  return ptr_unit;
-}
-/*
-Unit* CavalryFactory::getUnit(const std::string& unitType, int h, int d, std::string& c)
-{
-  Unit* ptr_unit = nullptr;
-  if(unitType == "cavalry")
-  {
-    ptr_unit = new Cavalry(h, d, c);
-  }
-  return ptr_unit;
-}
-*/

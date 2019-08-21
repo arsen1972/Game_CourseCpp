@@ -1,20 +1,16 @@
 #include <iostream>
-#include "Cavalry.h"
-#include "Unit.h"
 #include <string>
 #include <map>
+#include "Cavalry.h"
+#include "../Cell/Cell.h"
+#include "Unit.h"
 using std::string;
+using std::cout;
+using std::endl;
 
-// ***************************************************** Cavalry()
-Cavalry::Cavalry()
-{
-  this->setHealth(150);
-  this->setDamage(30);
-  this->setCell("empty");
-  //LOG_TRACE
-}
-// ***************************************************** Cavalry(int, int)
-Cavalry::Cavalry(int h, int d) : Unit(h, d)
+
+// ***************************************************** Cavalry(int, int, bool, Cell*)
+Cavalry::Cavalry(int h, int d, bool def, Cell* c) : Unit(h, d, def, c)
 { //LOG_TRACE
 }
 
@@ -25,26 +21,28 @@ Cavalry::~Cavalry()
 // **************************************************** move(int)
 void Cavalry::move(int a)
 {
-  std::cout << "\nCavalry took " << a << " steps:" << std::endl;
+  cout << "\nCavalry took " << a << " steps:" << endl;
   if (a>1)
-  { std::cout << "Dyck-dyck, ";
+  { cout << "Dyck-dyck, ";
   }
   for(short step=1; step < (a-1); step++)
-  { std::cout << "dyck-dyck, ";
+  { cout << "dyck-dyck, ";
   }
-  std::cout << "dyck-dyck!\n" << std::endl;
+  cout << "dyck-dyck!\n" << endl;
 }
 
 // **************************************************** getAttackBonus()
-int Cavalry::getAttackBonus(string l)
+int Cavalry::getAttackBonus()
 { 
-  return 33; //Cavalry::unitAttackBonus[l];
+  return unitAttackBonus[this->getCell()->getLands()];
 }
-//**************************************************** unitAttackBonus
-map<string, int> Cavalry::unitAttackBonus;
- 
-//unitAttackBonus["plain"] = 10;
-//unitAttackBonus["forest"] = 20;
-//unitAttackBonus["sea"] = -20;
 
+// **************************************************** getDefenceBonus()
+int Cavalry::getDefenceBonus()
+{ 
+  return (unitDefenceBonus[this->getCell()->getLands()])*(this->getDefence());
+}
 
+//*************************************** unitAttackBonus & unitDefenceBonus
+std::map<string, int> Cavalry::unitAttackBonus = { {"plain", 11}, {"forest", 22}, {"sea", -22} };
+std::map<string, int> Cavalry::unitDefenceBonus = { {"plain", -22}, {"forest", -44}, {"sea", 44} };

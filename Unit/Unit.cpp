@@ -1,29 +1,20 @@
 #include <iostream>
 #include "Unit.h"
 #include "../Cell/Cell.h"
+using std::string;
+using std::cout;
+using std::endl;
 
-// **************************************************** Unit()
-Unit::Unit() : health(100), damage(health/5), cell("empty")
-{ //LOG_TRACE
-}
-// **************************************************** Unit(int, int)  
-Unit::Unit(int h = 100, int d = 20) : health(h), damage(d)
-{ //LOG_TRACE
-}
-// **************************************************** Unit(int, int, string)  
-Unit::Unit(int h = 100, int d = 20, string c = "empty") : health(h), damage(d), cell(c)
-{ //LOG_TRACE
-}
-// **************************************************** Unit(int, int, Cell&)
-/*
-Unit::Unit(int h = 100, int d = 20, Cell& c) 
+// **************************************************** Unit(int, int, bool, Cell*)
+Unit::Unit(int h, int d, bool def, Cell* c)
 { 
  this->health = h;
  this->damage = d;
- this->cell = c.getLands(); 
+ this->defence = def;
+ this->cell = c;
 //LOG_TRACE
 }
-*/
+
 // **************************************************** ~Unit()
 Unit::~Unit()
 { //LOG_TRACE
@@ -36,10 +27,12 @@ void Unit::setHealth(int h)
 void Unit::setDamage(int d)
 { this->damage = d;
 }
-// **************************************************** setCell()
-void Unit::setCell(string c)
-{ this->cell = c;
+
+// **************************************************** getDefence()
+bool Unit::getDefence()
+{ return this->defence;
 }
+
 // **************************************************** getHealth()
 int Unit::getHealth()
 { return this->health;
@@ -49,23 +42,32 @@ int Unit::getDamage()
 { return this->damage;
 }
 // **************************************************** getCell()
-string Unit::getCell()
+Cell* Unit::getCell()
 { return this->cell;
 }
 // **************************************************** move(int)
 void Unit::move(int)
 {
 }
+// **************************************************** print()
+void Unit::print()
+{
+  cout << "Health = \t" << this->getHealth() << endl;
+  cout << "Damage = \t" << this->getDamage() << endl;
+  cout << "Defence = \t" << this->getDefence() << endl;
+}
 // **************************************************** attack(Unit*)
 void Unit::attack(Unit* ptr_victim)
 { 
-  int bonus =  this->getAttackBonus("forest");  // this->getAttackBonus(this->cell.lands);
-  std::cout << "\n **********************************   The attack has begin   *****" << std::endl;
-  std::cout << "bonus = " << bonus << std::endl;
-  std::cout << "Current damage = damage + bonus =  " << bonus + this->damage << std::endl;
-  ptr_victim->setHealth((ptr_victim->getHealth()) - (this->damage + bonus));
+  int bonus = this->getAttackBonus();
+  int defenceBonus = ptr_victim->getDefenceBonus();
+  cout << "\n  ******************************   The attack has begin" << endl;
+  cout << "bonus = " << bonus << endl;
+  cout << "defenceBonus = " << defenceBonus << endl;
+  cout << "Current damage = damage + bonus + defenceBonus = " << bonus + this->damage + defenceBonus<< endl;
   
-  this->health = this->health - (this->damage)/10;
-    
-  return;
+  ptr_victim->setHealth((ptr_victim->getHealth()) - abs((this->damage + bonus + defenceBonus)));
+  this->health = this->health - abs((this->damage)/10);
+  
+  cout << "\n  . . . . . . . . . . . . . . . .   The attack is over" << endl;
 }

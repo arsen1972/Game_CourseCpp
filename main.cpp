@@ -10,46 +10,46 @@ Factory* getDepartment(const string &);
  
 int main()
 {
-  Cell pole ("forest");
-  cout << "\nОбьект Cell с состоянием: " << pole.getLands() << endl;
-
+  Cell C ("forest");
+  Cell* cell = &C;
+  cout << "\nОбьект Cell инициализирован: " << cell->getLands() << endl;
+  cout << endl;
+  
   string unitType = "cavalry";
   int steps = 5;
   int health_0 = 200; int damage_0 = 20;
-  
-  cout << "\nНачальные значения health & damage:" << endl;
-  cout << "health_0 = " << health_0 << endl;
-  cout << "damage_0 = " << damage_0 << endl;
-  cout << endl;
-  
+  bool defence_0 = false;
+  bool defence_1 = true;
+
   Factory factory; 
   factory.addDepartment(getDepartment(unitType));
-  Unit* ptr_unit = factory.getUnit(unitType, health_0, damage_0); 
-  ptr_unit->setCell(pole.getLands());
+  Unit* ptr_unit = factory.getUnit(unitType, health_0, damage_0, defence_0, cell);
   
-  cout << "Создается первый юнит в режиме \"c параметрами\"" << endl;
-  cout << "Health unit_1 (aggressor) = " << ptr_unit->getHealth() << endl;
-  cout << "Damage unit_1 (aggressor) = " << ptr_unit->getDamage() << endl;
-  cout << "Bonus-parametr (aggressor) = " << ptr_unit->getCell() << endl;
-  
-  Unit* ptr_unit2 = factory.getUnit(unitType);
-  cout << "\nСоздается второй юнит в режиме \"по умолчанию\"" << endl;
-  cout << "Health unit_2 (victim) = " << ptr_unit2->getHealth() << endl;
-  cout << "Damage unit_2 (victim) = " << ptr_unit2->getDamage() << endl;
-  
-  ptr_unit->attack(ptr_unit2);
-  
-  cout << "Показатели после атаки" << std::endl;
-  
-  cout << "Health unit_1 (aggressor) = " << ptr_unit->getHealth() << endl;
-  cout << "Damage unit_1 (aggressor) = " << ptr_unit->getDamage() << endl;
-
-  cout << "Health unit_2 (victim) = " << ptr_unit2->getHealth() << endl;
-  cout << "Damage unit_2 (victim) = " << ptr_unit2->getDamage() << endl;
+  cout << "  ******************************   Показатели до атаки" << std::endl;
+  cout << "\tptr_unit" << endl;
+  ptr_unit->print(); 
   cout << endl;
   
-  delete ptr_unit2;
-  delete ptr_unit;
+  Unit* ptr_unit2 = factory.getUnit(unitType, health_0, damage_0, defence_1, cell);
+  cout << "\tptr_unit 2" << endl;
+  ptr_unit2->print(); 
+  cout << endl; 
+  
+  ptr_unit->attack(ptr_unit2);
+  cout << "\n  ******************************   Показатели после атаки" << std::endl;
+  
+  cout << "\tptr_unit" << endl;
+  ptr_unit->print(); 
+  cout << endl;
+  
+  cout << "\tptr_unit 2" << endl;
+  ptr_unit2->print(); 
 
+  delete ptr_unit2;
+  //ptr_unit2 = nullptr;
+  delete ptr_unit;
+  //ptr_unit = nullptr;
+  
+  cout << endl;
   return 0;
 }

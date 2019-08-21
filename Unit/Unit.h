@@ -8,9 +8,7 @@ using std::string;
 class Unit
 {
 public:
-   Unit();
-   Unit(int, int);
-   Unit(int, int, string);
+   Unit(int, int, bool, Cell*);
    virtual ~Unit();
   
    virtual void move(int);
@@ -21,14 +19,19 @@ public:
    
    void setDamage(int);
    int getDamage();
-   
-   void setCell(string);
-   string getCell();
   
-   virtual int getAttackBonus(string l) = 0;
-
+   virtual int getAttackBonus() = 0;
+   virtual int getDefenceBonus() = 0;
+   
+   bool getDefence();
+   Cell* getCell();
+   
+   void print();
+   
 private:
+
    int health;
    int damage;
-   string cell;
+   bool defence;
+   Cell* cell;
 };

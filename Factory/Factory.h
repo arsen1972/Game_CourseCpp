@@ -3,7 +3,6 @@
 #include "../Unit/Unit.h"
 #include "../Cell/Cell.h"
 #include <vector>
-using std::vector;
 #include <string>
 using std::string;
 
@@ -12,10 +11,9 @@ class Factory
 public:
   Factory();
   virtual ~Factory();
-  virtual Unit* getUnit(const string &);
-  virtual Unit* getUnit(const string &, int, int);
+  virtual Unit* getUnit(const string &, int, int, bool, Cell*);
   void addDepartment(Factory*);
   
 private:
-  vector<Factory*>departments;
+  std::vector<Factory*>departments;
 };
