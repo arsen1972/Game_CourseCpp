@@ -3,8 +3,7 @@
 #include "../Cell/Cell.h"
 #include <map>
 #include <string>
-using std::string;
-using std::map;
+
 
 class Cavalry : public Unit
 {
@@ -13,17 +12,18 @@ public:
 
 //  Cavalry();
   Cavalry(int, int, bool, Cell*);
-  
   ~Cavalry();
   
   void move(int);
-  int getAttackBonus();
-  int getDefenceBonus();
-  Cell* getLands();
   
   
-private:
+protected:
 
-  static map<string, int> unitAttackBonus; 
-  static map<string, int> unitDefenceBonus; 
+  std::map<std::string, int> getAttackMap();
+  std::map<std::string, int> getDefenceMap();
+
+private:
+  
+  static std::map<std::string, int> unitAttackBonus; 
+  static std::map<std::string, int> unitDefenceBonus;
 };

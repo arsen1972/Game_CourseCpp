@@ -7,29 +7,31 @@ using std::string;
 
 class Unit
 {
-public:
+ public:
+ 
    Unit(int, int, bool, Cell*);
    virtual ~Unit();
   
    virtual void move(int);
-   void attack(Unit*);
-   
-   void setHealth(int);
-   int getHealth();
-   
-   void setDamage(int);
-   int getDamage();
-  
-   virtual int getAttackBonus() = 0;
-   virtual int getDefenceBonus() = 0;
-   
-   bool getDefence();
-   Cell* getCell();
-   
+   void attack(Unit*);  
    void print();
    
-private:
+ protected:
+ 
+   void setHealth(int);
+   void setDamage(int);
+   int getHealth();
+   int getDamage(); 
+   bool getDefence();
+   Cell* getCell();
+   virtual std::map<string, int> getAttackMap() = 0;
+   virtual std::map<string, int> getDefenceMap() = 0;
 
+   
+ private:
+ 
+   int getAttackBonus();
+   int getDefenceBonus();
    int health;
    int damage;
    bool defence;

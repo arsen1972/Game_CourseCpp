@@ -4,6 +4,7 @@
 #include "Cavalry.h"
 #include "../Cell/Cell.h"
 #include "Unit.h"
+using std::map;
 using std::string;
 using std::cout;
 using std::endl;
@@ -25,24 +26,22 @@ void Cavalry::move(int a)
   if (a>1)
   { cout << "Dyck-dyck, ";
   }
-  for(short step=1; step < (a-1); step++)
+  for(size_t step=1; step < (a-1); step++)
   { cout << "dyck-dyck, ";
   }
   cout << "dyck-dyck!\n" << endl;
 }
 
-// **************************************************** getAttackBonus()
-int Cavalry::getAttackBonus()
-{ 
-  return unitAttackBonus[this->getCell()->getLands()];
+// *************************************************** getAttackMap()
+map<string, int> Cavalry::getAttackMap()
+{ return this->unitAttackBonus;
 }
 
-// **************************************************** getDefenceBonus()
-int Cavalry::getDefenceBonus()
-{ 
-  return (unitDefenceBonus[this->getCell()->getLands()])*(this->getDefence());
+// *************************************************** getDefenceMap()
+map<string, int> Cavalry::getDefenceMap()
+{ return this->unitDefenceBonus;
 }
 
 //*************************************** unitAttackBonus & unitDefenceBonus
-std::map<string, int> Cavalry::unitAttackBonus = { {"plain", 11}, {"forest", 22}, {"sea", -22} };
-std::map<string, int> Cavalry::unitDefenceBonus = { {"plain", -22}, {"forest", -44}, {"sea", 44} };
+map<string, int> Cavalry::unitAttackBonus = { {"plain", 22}, {"forest", 23}, {"sea", 24} };
+map<string, int> Cavalry::unitDefenceBonus = { {"plain", 11}, {"forest", 13}, {"sea", 14} };

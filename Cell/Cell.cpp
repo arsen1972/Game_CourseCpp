@@ -4,15 +4,12 @@
 using std::string;
 
 // **************************************************** Cell()
-Cell::Cell()
-{ this->lands = "sea";
-//LOG_TRACE
+Cell::Cell() 
+{ this->lands = "sea";  //LOG_TRACE
 }
 // **************************************************** Cell(string)
-Cell::Cell(string l)
-{ 
-  this->lands = l;
-  //LOG_TRACE
+Cell::Cell(string l) : lands(l)
+{ //LOG_TRACE
 }
 // **************************************************** ~Cell()
 Cell::~Cell()
@@ -20,6 +17,5 @@ Cell::~Cell()
 }
 // ************************************************  getLands()
 string Cell::getLands() const
-{
-  return this->lands;
+{ return this->lands;
 }

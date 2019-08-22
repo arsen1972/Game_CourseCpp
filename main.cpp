@@ -10,9 +10,14 @@ Factory* getDepartment(const string &);
  
 int main()
 {
-  Cell C ("forest");
-  Cell* cell = &C;
-  cout << "\nОбьект Cell инициализирован: " << cell->getLands() << endl;
+  Cell C1 ("forest");
+  Cell* cell_01 = &C1;
+  Cell C2 ("plain");
+  Cell* cell_02 = &C2;
+  
+  cout << endl;
+  cout << "Обьект Cell C1 инициализирован: " << cell_01->getLands() << endl;
+  cout << "Обьект Cell C2 инициализирован: " << cell_02->getLands() << endl;
   cout << endl;
   
   string unitType = "cavalry";
@@ -23,24 +28,20 @@ int main()
 
   Factory factory; 
   factory.addDepartment(getDepartment(unitType));
-  Unit* ptr_unit = factory.getUnit(unitType, health_0, damage_0, defence_0, cell);
+  Unit* ptr_unit = factory.getUnit(unitType, health_0, damage_0, defence_0, cell_01);
   
-  cout << "  ******************************   Показатели до атаки" << std::endl;
+  cout << "   ПОКАЗАТЕЛИ ДО АТАКИ" << std::endl;
   cout << "\tptr_unit" << endl;
-  ptr_unit->print(); 
-  cout << endl;
+  ptr_unit->print();
   
-  Unit* ptr_unit2 = factory.getUnit(unitType, health_0, damage_0, defence_1, cell);
+  Unit* ptr_unit2 = factory.getUnit(unitType, health_0, damage_0, defence_1, cell_02);
   cout << "\tptr_unit 2" << endl;
   ptr_unit2->print(); 
-  cout << endl; 
   
   ptr_unit->attack(ptr_unit2);
-  cout << "\n  ******************************   Показатели после атаки" << std::endl;
-  
+  cout << "\n   ПОКАЗАТЕЛИ ПОСЛЕ АТАКИ" << std::endl;
   cout << "\tptr_unit" << endl;
   ptr_unit->print(); 
-  cout << endl;
   
   cout << "\tptr_unit 2" << endl;
   ptr_unit2->print(); 
@@ -50,6 +51,5 @@ int main()
   delete ptr_unit;
   //ptr_unit = nullptr;
   
-  cout << endl;
   return 0;
 }
