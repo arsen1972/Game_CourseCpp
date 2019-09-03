@@ -10,11 +10,17 @@ using std::endl;
 Unit::Unit(int h , int d, bool def, Cell* c) : health(h), damage(d), defence(def), cell(c)
 { //LOG_TRACE 
 }
+
+// **************************************************** Unit(string, int, int, bool, Cell*)
+Unit::Unit(string uT, int h , int d, bool def, Cell* c) : unitType(uT), health(h), damage(d), defence(def), cell(c)
+{ //LOG_TRACE 
+}
+
 // **************************************************** ~Unit()
 Unit::~Unit()
 { //LOG_TRACE 
 }
-
+   
 // **************************************************** setHealth(int h)
 void Unit::setHealth(int h)
 { this->health = h;
@@ -23,6 +29,12 @@ void Unit::setHealth(int h)
 // **************************************************** setHealth(int h)
 void Unit::setDamage(int d)
 { this->damage = d;
+}
+
+// **************************************************** getUnitType()  
+string Unit::getUnitType()
+{
+  return this->unitType;
 }
 
 // **************************************************** getDefence()
@@ -48,16 +60,21 @@ void Unit::move(int)
 {
 }
 
-// **************************************************** print()
-void Unit::print()
+// **************************************************** printUnitFields()
+void Unit::printUnitFields()
 {
+  cout << "unitType is \t" << this->getUnitType() << endl;
   cout << "Health = \t" << this->getHealth() << endl;
   cout << "Damage = \t" << this->getDamage() << endl;
   cout << "Defence = \t" << this->getDefence() << endl;
   cout << "Bonus factor = \t" << this->getCell()->getLands() << endl;
   cout << endl;
 }
-
+// ************************************************* buildFactory();
+void Unit::buildFactory(string fT)
+{
+  //cout << "Build Factory " << fT << endl;
+}
 // ************************************************* getAttackBonus()
 int Unit::getAttackBonus()
 {

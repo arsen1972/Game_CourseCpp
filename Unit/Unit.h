@@ -2,36 +2,40 @@
 #include "../Cell/Cell.h"
 #include <map>
 #include <string>
-//#define LOG_TRACE printf("function %s() (%s:%d)\n", __FUNCTION__, __FILE__, __LINE__);
 using std::string;
+using std::map;
 
 class Unit
 {
  public:
  
    Unit(int, int, bool, Cell*);
-   virtual ~Unit();
+   Unit(string, int, int, bool, Cell*);
+    ~Unit();
   
    virtual void move(int);
+   virtual void buildFactory(string);
    void attack(Unit*);  
-   void print();
+   void printUnitFields();
    
  protected:
  
    void setHealth(int);
    void setDamage(int);
+   string getUnitType();
    int getHealth();
    int getDamage(); 
    bool getDefence();
    Cell* getCell();
-   virtual std::map<string, int> getAttackMap() = 0;
-   virtual std::map<string, int> getDefenceMap() = 0;
+   virtual map<string, int> getAttackMap() = 0;
+   virtual map<string, int> getDefenceMap() = 0;
 
    
  private:
  
    int getAttackBonus();
    int getDefenceBonus();
+   string unitType;
    int health;
    int damage;
    bool defence;

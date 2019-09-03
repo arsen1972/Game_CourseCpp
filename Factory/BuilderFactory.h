@@ -5,11 +5,11 @@
 #include <string>
 
 
-class CavalryFactory : public Factory
+class BuilderFactory : public Factory
 {
 public:
-  CavalryFactory();
-  ~CavalryFactory();
+  BuilderFactory();
+  ~BuilderFactory();
   Unit* getUnit(const std::string &, int, int, bool, Cell*);
   Unit* getUnit(const std::string &, std::string, int, int, bool, Cell*);
 

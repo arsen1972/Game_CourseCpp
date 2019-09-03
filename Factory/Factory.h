@@ -1,4 +1,3 @@
-//#define LOG_TRACE printf("function %s() (%s:%d)\n", __FUNCTION__, __FILE__, __LINE__);
 #pragma once
 #include "../Unit/Unit.h"
 #include "../Cell/Cell.h"

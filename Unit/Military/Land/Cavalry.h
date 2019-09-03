@@ -1,17 +1,19 @@
 #pragma once
-#include "Unit.h"
-#include "../Cell/Cell.h"
+#include "../../Unit.h"
+#include "LandUnit.h"
+#include "../../../Cell/Cell.h"
 #include <map>
 #include <string>
 
 
-class Cavalry : public Unit
+class Cavalry : public LandUnit
 {
 
 public:
 
 //  Cavalry();
   Cavalry(int, int, bool, Cell*);
+  Cavalry(string, int, int, bool, Cell*);
   ~Cavalry();
   
   void move(int);
