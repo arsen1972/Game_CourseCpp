@@ -10,7 +10,6 @@ using std::string;
 using std::cout;
 using std::endl;
 
-
 // *****************************************************************   Factory()
 Factory::Factory()
 { //LOG_TRACE
@@ -22,15 +21,15 @@ Factory::~Factory()
   std::for_each(departments.begin(), departments.end(), [](Factory* ptr_factory){ delete ptr_factory;} );
 }
 
-// **************************************************    getUnit(const std::string & unitType, int h, int d, bool def, Cell* c)
-Unit* Factory::getUnit(const std::string & unitType, int h, int d, bool def, Cell* c)
+/*// **************************************************    getUnit(Status, TypeOfTerrain, string & unitType, int h, int d, bool def, Cell* c)
+Unit<Status, TypeOfTerrain>* Factory::getUnit(Status st, TypeOfTerrain tOT, string & unitType, int h, int d, bool def, Cell* c)
 {
-  Unit* ptr_unit = nullptr;
+  Unit<Status, TypeOfTerrain>* ptr_unit = nullptr;
   std::vector<Factory*>::iterator iter = departments.begin();
   
   while ( ptr_unit == nullptr && iter != departments.end() )
   {
-    ptr_unit = (*iter)->getUnit(unitType, h, d, def, c);
+    ptr_unit = (*iter)->getUnit(st, tOT, unitType, h, d, def, c);
     ++iter;
   }
   return ptr_unit;
@@ -40,4 +39,4 @@ void Factory::addDepartment(Factory* ptr_factory)
 {
   departments.push_back(ptr_factory);
   return;
-}
+}*/

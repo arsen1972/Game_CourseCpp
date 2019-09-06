@@ -1,8 +1,6 @@
 #include <string>
 #include <iostream>
 
-#include "BuilderFactory.h"
-
 #include "../Unit/Civil/Builder.h"
 #include "../Unit/Civil/Medic.h"
 #include "../Unit/Civil/Atlant.h"
@@ -13,15 +11,15 @@
 #include "../Cell/Cell.h"
 
 
-BuilderFactory::BuilderFactory()
+AtlantFactory::AtlantFactory()
 {//LOG_TRACE
 }
 
-BuilderFactory::~BuilderFactory()
+AtlantFactory::~AtlantFactory()
 {//LOG_TRACE
 }
 
-Unit<Status, TypeOfTerrain>* BuilderFactory::getUnit(Status st, TypeOfTerrain tOT, const std::string & unitType, int h, int d, bool def, Cell* c)
+Unit<Status, TypeOfTerrain>* AtlantFactory::getUnit(Status st, TypeOfTerrain tOT, const std::string & unitType, int h, int d, bool def, Cell* c)
 {
   Unit<Status, TypeOfTerrain>* ptr_unit = nullptr;
   if(unitType == "builder") ptr_unit = new Builder(st, tOT, unitType, h, d, def, c);

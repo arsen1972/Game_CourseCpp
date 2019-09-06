@@ -1,8 +1,6 @@
 #include <string>
 #include <iostream>
 
-#include "BuilderFactory.h"
-
 #include "../Unit/Civil/Builder.h"
 #include "../Unit/Civil/Medic.h"
 #include "../Unit/Civil/Atlant.h"

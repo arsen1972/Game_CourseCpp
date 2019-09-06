@@ -1,18 +1,14 @@
 #include <iostream>
 #include "Unit.h"
+#include "Enums.h"
 #include "../Cell/Cell.h"
 using std::map;
 using std::string;
 using std::cout;
 using std::endl;
 
-// **************************************************** Unit(int, int, bool, Cell*)
-Unit::Unit(int h , int d, bool def, Cell* c) : health(h), damage(d), defence(def), cell(c)
-{ //LOG_TRACE 
-}
-
-// **************************************************** Unit(string, int, int, bool, Cell*)
-Unit::Unit(string uT, int h , int d, bool def, Cell* c) : unitType(uT), health(h), damage(d), defence(def), cell(c)
+// **************************************************** Unit(Status, TypeOfTerrain, string, int, int, bool, Cell*)
+Unit::Unit (Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : status(st), typeOfTerrain(tOT), unitType(uT), health(h), damage(d), defence(def), cell(c)
 { //LOG_TRACE 
 }
 

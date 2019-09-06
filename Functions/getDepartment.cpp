@@ -1,14 +1,20 @@
 #include <string>
 #include "../Factory/Factory.h"
-#include "../Factory/CavalryFactory.h"
+#include "../Factory/AtlantFactory.h"
 #include "../Factory/BuilderFactory.h"
-#include <map>
+//#include "../Factory/MilitaryLandFactory.h"
 
-Factory* getDepartment(const std::string& unitType)
+
+using std::string;
+
+Factory* getDepartment(const string& unitType)
 { 
+
   Factory* newDep;
-  if (unitType == "cavalry") newDep = new CavalryFactory();
-  if (unitType == "builder") newDep = new BuilderFactory();
-  
+  if (unitType == "atlant") newDep = new AtlantFactory();
+  else if (unitType == "builder") newDep = new BuilderFactory();
+//  else if (unitType == "medic") newDep = new MedicFactory();
+//  else if (unitType == "cavalry") newDep = new MilitaryLandFactory();
+
   return newDep;
 }
