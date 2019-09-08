@@ -1,50 +1,49 @@
 #include <iostream>
-#include "Unit/Unit.h"
+#include "Unit/Unit.hpp"
 #include "Unit/Enums.h"
 #include "Factory/Factory.h"
 #include "Cell/Cell.h"
+#include <string>
 
 using std::string;
 using std::cout;
 using std::endl;
 
-Factory* getDepartment(const string &);
+Factory* getDepartment(const std::string &);
  
 int main()
 {
-  Cell C1 ("forest");
-  Cell* cell_01 = &C1;
-  Cell C2 ("plain");
-  Cell* cell_02 = &C2;
+
+  Cell c ("plain");
   
-  cout << endl;
-  cout << "Обьект Cell C1 инициализирован: " << cell_01->getLands() << endl;
-  cout << "Обьект Cell C2 инициализирован: " << cell_02->getLands() << endl;
-  cout << endl;
+  cout << "Обьект Cell C1 инициализирован: " << c.getLands() << endl;
   
   // parametrs for initializations
   // string unitType_02 = "cavalry";
-  string unitType = "atlant";
+  std::string unitType = "builder";
   int steps = 5;
-  int health_0 = 200; int damage_0 = 20;
+  int health_0 = 200;
+  int damage_0 = 20;
   bool defence_0 = false;
   bool defence_1 = true;
-  Status status = ATLANT; // Status status = 2;
+  Status status = CIVIL; // Status status = 2;
   TypeOfTerrain tOT = LAND; // TypeOfTerrain tOT = 0;
   
-  
+ 
   Factory factory;
   factory.addDepartment(getDepartment(unitType));
-  Unit<Status, TypeOfTerrain>* ptr_unit = factory.getUnit(CIVIL, LAND, "builder", 200, 20, 0, &C1);
-//  Unit<Status, TypeOfTerrain>* ptr_unit_2 = factory.getUnit(status, tOT, unitType, health_0, damage_0, defence_0, cell_02);
-
+//  Unit<Status, TypeOfTerrain>* ptr_unit = factory.getUnit(CIVIL, LAND, "builder", 200, 20, 0, &C1);
+  Unit<Status, TypeOfTerrain>* ptr_unit = factory.getUnit(status, tOT, unitType, health_0, damage_0, defence_0, &c);
+  
+  if (&ptr_unit)  cout << "Юнит \"" << unitType << "\" создан" << endl;
+  
 //  ptr_unit->printUnitFields();
 //  ptr_unit_2->printUnitFields();
 
   //ptr_unit->buildFactoryCivil("civil"); // стоит фабрику CivilFactory
   //ptr_unit->buildFactoryMilitary("military");  // стоит фабрику MilitaryFactory
   
-  /*
+ /* 
   string unitType = "cavalry";
   string unitType_02 = "builder";
   int steps = 5;

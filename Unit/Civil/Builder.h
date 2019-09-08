@@ -1,14 +1,17 @@
 #pragma once
-#include "../Unit.h"
+#include "../Unit.hpp"
+#include "../Enums.h"
 #include "../../Factory/Factory.h"
 #include "../../Cell/Cell.h"
 #include <map>
 #include <string>
 
 
-class Builder : public Unit
+class Builder : public Unit<Status, TypeOfTerrain>
 {
- public:
+typedef Unit<Status, TypeOfTerrain> Unitt;
+
+public:
 
   Builder(Status, TypeOfTerrain, string, int, int, bool, Cell*);
   ~Builder();
@@ -19,7 +22,7 @@ class Builder : public Unit
   BuilderFactory* buildBuilderFactory();
   MedicFactory* buildMedicFactory();
   AtlantFactory* buildAtlantFactory();
-*/
+
   
 protected:
   void buildBuilderFactory();
@@ -28,5 +31,5 @@ protected:
 
 private:
   
-
+*/
 };

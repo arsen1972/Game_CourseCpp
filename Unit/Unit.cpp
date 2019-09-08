@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Unit.h"
+#include "Unit.hpp"
 #include "Enums.h"
 #include "../Cell/Cell.h"
 using std::map;
@@ -8,15 +8,15 @@ using std::cout;
 using std::endl;
 
 // **************************************************** Unit(Status, TypeOfTerrain, string, int, int, bool, Cell*)
-Unit::Unit (Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : status(st), typeOfTerrain(tOT), unitType(uT), health(h), damage(d), defence(def), cell(c)
-{ //LOG_TRACE 
-}
+//Unit::Unit (Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : status(st), typeOfTerrain(tOT), unitType(uT), health(h), damage(d), defence(def), cell(c)
+//{ //LOG_TRACE 
+//}
 
 // **************************************************** ~Unit()
-Unit::~Unit()
-{ //LOG_TRACE 
-}
-   
+//Unit::~Unit()
+//{ //LOG_TRACE 
+//}
+/*   
 // **************************************************** setHealth(int h)
 void Unit::setHealth(int h)
 { this->health = h;
@@ -97,4 +97,4 @@ void Unit::attack(Unit* ptr_victim)
   this->health = this->health - abs((this->damage)/10);
   
   cout << "****  THE ATTACK IS OVER\n" << endl;
-}
+}*/

@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "Enums.h"
 #include "../Cell/Cell.h"
 #include <map>
@@ -26,7 +27,7 @@ class Unit
   TypeOfTerrain typeOfTerrain;
 
  protected:                 // ***********************  methods()
-  
+/*  
   string getUnitType();
    
   int getHealth();
@@ -43,7 +44,17 @@ class Unit
   
  public:
   virtual void printUnitFields();
+*/  
 };
+
+template <typename Status, typename TypeOfTerrain> Unit<Status, TypeOfTerrain>::Unit (Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : status(st), typeOfTerrain(tOT), unitType(uT), health(h), damage(d), defence(def), cell(c)
+{
+  std::cout << "Обьект Unit" << std::endl;
+}
+template <typename Status, typename TypeOfTerrain> Unit<Status, TypeOfTerrain>::~Unit()
+{
+}
+
 /*
 // *******************************************  template specialization for CIVIL units
 template <>   // может сделать CIVIL чистым шаблоном, а MILITARY - специализацией?

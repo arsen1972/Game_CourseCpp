@@ -3,15 +3,14 @@
 #include <map>
 #include "Builder.h"
 #include "../../Cell/Cell.h"
-//#include "../Military.h"
-#include "../Unit.h"
+#include "../Unit.hpp"
 using std::map;
 using std::string;
 using std::cout;
 using std::endl;
 
-// ***************************************************** Builder(string, int, int, bool, Cell*)
-Builder::Builder(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : Unit(st, tOT, uT, h, d, def, c)
+// ***************************************************** Builder(Status, TypeOfTerrainstring, int, int, bool, Cell*)
+Builder::Builder(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : Unitt(st, tOT, uT, h, d, def, c)
 { 
 }
 
@@ -19,7 +18,7 @@ Builder::Builder(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def
 Builder::~Builder()
 { 
 }
-
+/*
 // **************************************************** buildBuilderFactory()
 void Builder::buildBuilderFactory() //BuilderFactory* buildBuilderFactory()
 {
@@ -48,3 +47,4 @@ void Builder::printUnitFields()
   cout << "Health = \t" << this->getHealth() << endl;
   cout << endl;
 }
+*/
