@@ -15,11 +15,9 @@ int main()
 {
 
   Cell c ("plain");
-  
-  cout << "Обьект Cell C1 инициализирован: " << c.getLands() << endl;
-  
-  // parametrs for initializations
-  // string unitType_02 = "cavalry";
+  cout << "\nОбьект Cell c инициализирован: " << c.getLands() << endl;
+  cout << endl;
+// *******************************************     parametrs for initializations
   std::string unitType = "builder";
   int steps = 5;
   int health_0 = 200;
@@ -29,17 +27,11 @@ int main()
   Status status = CIVIL; // Status status = 2;
   TypeOfTerrain tOT = LAND; // TypeOfTerrain tOT = 0;
   
- 
   Factory factory;
   factory.addDepartment(getDepartment(unitType));
-//  Unit<Status, TypeOfTerrain>* ptr_unit = factory.getUnit(CIVIL, LAND, "builder", 200, 20, 0, &C1);
   Unit<Status, TypeOfTerrain>* ptr_unit = factory.getUnit(status, tOT, unitType, health_0, damage_0, defence_0, &c);
-  
-  if (&ptr_unit)  cout << "Юнит \"" << unitType << "\" создан" << endl;
-  
-//  ptr_unit->printUnitFields();
-//  ptr_unit_2->printUnitFields();
-
+  cout << endl;
+  ptr_unit->printUnitFields();
   //ptr_unit->buildFactoryCivil("civil"); // стоит фабрику CivilFactory
   //ptr_unit->buildFactoryMilitary("military");  // стоит фабрику MilitaryFactory
   

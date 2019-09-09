@@ -15,7 +15,8 @@ public:
 
   Builder(Status, TypeOfTerrain, string, int, int, bool, Cell*);
   ~Builder();
-  
+  string getUnitType() const override;
+  void printUnitFields() const override;
 //  void printUnitFields() override;
 
 /*  

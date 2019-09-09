@@ -2,9 +2,6 @@
 #include <iostream>
 
 #include "../Unit/Civil/Builder.h"
-//#include "../Unit/Civil/Medic.h"
-//#include "../Unit/Civil/Atlant.h"
-//#include "../Unit/Military/Land/Cavalry.h"
 
 #include "BuilderFactory.h"
 
@@ -14,14 +11,15 @@
 
 
 BuilderFactory::BuilderFactory()
-{//LOG_TRACE
+{
+  std::cout << "BuilderFactory is done!" << std::endl;
 }
 
 BuilderFactory::~BuilderFactory()
-{//LOG_TRACE
+{
 }
-/*
-Unit<Status, TypeOfTerrain>* BuilderFactory::getUnit(Status st, TypeOfTerrain tOT, const std::string & unitType, int h, int d, bool def, Cell* c)
+
+Unit<Status, TypeOfTerrain>* BuilderFactory::getUnit(Status st, TypeOfTerrain tOT, std::string & unitType, int h, int d, bool def, Cell* c)
 {
   Unit<Status, TypeOfTerrain>* ptr_unit = nullptr;
   if(unitType == "builder") ptr_unit = new Builder(st, tOT, unitType, h, d, def, c);
@@ -31,4 +29,3 @@ Unit<Status, TypeOfTerrain>* BuilderFactory::getUnit(Status st, TypeOfTerrain tO
 
   return ptr_unit;
 }
-*/

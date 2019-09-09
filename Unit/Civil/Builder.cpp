@@ -11,12 +11,29 @@ using std::endl;
 
 // ***************************************************** Builder(Status, TypeOfTerrainstring, int, int, bool, Cell*)
 Builder::Builder(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : Unitt(st, tOT, uT, h, d, def, c)
-{ 
+{ cout << "Обьект Builder" << endl;
 }
 
 // ***************************************************** ~Builder()
 Builder::~Builder()
-{ 
+{ cout << "Обьект ~Builder" << endl;
+}
+
+// ***************************************************** getUnitType()
+string Builder::getUnitType() const
+{ return this->Unit<Status, TypeOfTerrain>::getUnitType();
+}
+
+// ***************************************************** printUnitFields()
+void Builder::printUnitFields() const
+{
+  cout << "Printing here!!! From Builder" << endl;
+//  cout << "unitType is \t" << this->getUnitType() << endl;
+//  cout << "Health = \t" << this->getHealth() << endl;
+//  cout << "Damage = \t" << this->getDamage() << endl;
+//  cout << "Defence = \t" << this->getDefence() << endl;
+//  cout << "Bonus factor = \t" << this->getCell()->getLands() << endl;
+  cout << endl;
 }
 /*
 // **************************************************** buildBuilderFactory()
