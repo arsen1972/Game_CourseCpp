@@ -5,10 +5,10 @@
 #include <string>
 
 
-class BuilderFactory : public Factory
+class UniversalFactory : public Factory
 {
 public:
-  BuilderFactory();
-  ~BuilderFactory();
+  UniversalFactory();
+  ~UniversalFactory();
   Unit<Status, TypeOfTerrain>* getUnit(Status, TypeOfTerrain, std::string &, int, int, bool, Cell*);
 };

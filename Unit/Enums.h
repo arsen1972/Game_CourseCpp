@@ -1,7 +1,7 @@
 #pragma once
 
-enum TypeOfTerrain { LAND, SEA, AIR, ALL };
+enum TypeOfTerrain { LAND, SEA, AIR };
 
-enum Status { CIVIL, MILITARY, ATLANT };
+enum Status { CIVIL, MILITARY, UNIVERSAL };
 
-enum UnitType { atlant, builder, medic, cavalry, infantry };
+enum UnitType { universal, builder, medic, cavalry, infantry };

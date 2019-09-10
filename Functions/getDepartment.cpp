@@ -1,6 +1,6 @@
 #include <string>
 #include "../Factory/Factory.h"
-#include "../Factory/BuilderFactory.h"
+#include "../Factory/UniversalFactory.h"
 
 
 using std::string;
@@ -8,7 +8,7 @@ using std::string;
 Factory* getDepartment(const string& unitType)
 { 
   Factory* newDep;
-  if (unitType == "builder") newDep = new BuilderFactory();
+  if (unitType == "universal") newDep = new UniversalFactory();
 
   return newDep;
 }
