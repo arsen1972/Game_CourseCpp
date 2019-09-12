@@ -1,15 +1,23 @@
+
 #pragma once
+#include <fstream>
 #include <iostream>
-#include "Enums.h"
-#include "../Cell/Cell.h"
 #include <map>
 #include <string>
 
+#include "Enums.h"
+#include "../Cell/Cell.h"
+//#include "../Factory/Factory.h"
+
+#define PATH "Save/saves.csv"
+
 using std::string;
+using std::to_string;
 using std::map;
 using std::cout;
 using std::endl;
-
+using std::ofstream;
+using std::ifstream;
 
 
 template <typename Status, typename TypeOfTerrain>
@@ -17,15 +25,17 @@ class Unit
 {
 // *************************************   Constructor/destructor
  public:
+  Unit();
   Unit(Status, TypeOfTerrain, string, int, int, bool, Cell*); 
   virtual ~Unit();
   virtual string getUnitType() const;
   virtual void printUnitFields() const;
   virtual void move();
   void attack(Unit*);
-  
+  virtual void save();
+  virtual string load();
   virtual Cell* getCell() const;
-  virtual void buildBuilderFactory() const;
+//  virtual Factory* buildBuilderFactory();
   
  private:                      // ***********************  fields  
   string unitType;
@@ -53,6 +63,9 @@ class Unit
  
 };
 
+template <typename Status, typename TypeOfTerrain> 
+Unit<Status, TypeOfTerrain>::Unit()
+{}
 // ****************************************************   Constructor/destructor
 template <typename Status, typename TypeOfTerrain> 
 Unit<Status, TypeOfTerrain>::Unit (Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : status(st), typeOfTerrain(tOT), unitType(uT), health(h), damage(d), defence(def), cell(c)
@@ -149,13 +162,39 @@ void Unit<Status, TypeOfTerrain>::attack(Unit* ptr_victim)
   
   cout << "\n  . . . . . . . . . . . . . . . .   The attack is over" << endl;
 }
+// **************************************************** save()
+template <typename Status, typename TypeOfTerrain>
+void Unit<Status, TypeOfTerrain>::save()
+{
+  string str_temp;
+  str_temp = unitType + "," + to_string(health) + "," + to_string(damage) + "," + to_string(defence) + "," + getCell()->getLands() + "," + to_string(getCell()->getX()) + "," + to_string(getCell()->getY()) + "," + to_string(getStatus()) + "," + to_string(getTOT()); 
+  
+  ofstream fout;
+  fout.open(PATH);
+  if (!fout.is_open()) {cout << "Ошибка открытия файла..." << endl;}
+  else  { fout << str_temp << endl;}
+  fout.close(); 
+  cout << "Объект успешно сохранен" << endl;
+}
 
+// **************************************************** load()
+template <typename Status, typename TypeOfTerrain>
+string Unit<Status, TypeOfTerrain>::load()
+{
+  string inString;
+  ifstream fin(PATH);
+  getline(fin, inString);
+  fin.close();
+  return inString;
+}
+
+/*
 // ****************************************************   buildBuilderFactory()
 template <typename Status, typename TypeOfTerrain> 
-void Unit<Status, TypeOfTerrain>::buildBuilderFactory() const
-{
-  cout << "BuilderFactory is done virtual" << endl;
+Factory* Unit<Status, TypeOfTerrain>::buildBuilderFactory()
+{ cout << "BuilderFactory is done virtual" << endl;
 }
+*/
 /*
 // *******************************************  template specialization for CIVIL units
 template <>

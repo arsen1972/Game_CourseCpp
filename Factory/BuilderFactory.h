@@ -5,10 +5,10 @@
 #include <string>
 
 
-class UniversalFactory : public Factory
+class BuilderFactory : public Factory
 {
 public:
-  UniversalFactory();
-  ~UniversalFactory();
+  BuilderFactory();
+  ~BuilderFactory();
   Unit<Status, TypeOfTerrain>* getUnit(Status, TypeOfTerrain, std::string &, int, int, bool, Cell*) override;
 };

@@ -7,14 +7,14 @@
 #include <string>
 
 
-class Universal : public Unit<Status, TypeOfTerrain>
+class Builder : public Unit<Status, TypeOfTerrain>
 {
 typedef Unit<Status, TypeOfTerrain> Unitt;
 
 public:
 
-  Universal(Status, TypeOfTerrain, string, int, int, bool, Cell*);
-  ~Universal();
+  Builder(Status, TypeOfTerrain, string, int, int, bool, Cell*);
+  ~Builder();
   string getUnitType() const override;
   void printUnitFields() const override;
   Cell* getCell() const override;

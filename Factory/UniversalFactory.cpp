@@ -17,15 +17,12 @@ UniversalFactory::UniversalFactory()
 
 UniversalFactory::~UniversalFactory()
 {
+  std::cout << "UniversalFactory is destroy!" << std::endl;
 }
 
 Unit<Status, TypeOfTerrain>* UniversalFactory::getUnit(Status st, TypeOfTerrain tOT, std::string & unitType, int h, int d, bool def, Cell* c)
 {
   Unit<Status, TypeOfTerrain>* ptr_unit = nullptr;
   if(unitType == "universal") ptr_unit = new Universal(st, tOT, unitType, h, d, def, c);
-//  else if(unitType == "medic") ptr_unit = new Medic(st, tOT, unitType, h, d, def, c);
-//  else if(unitType == "atlant") ptr_unit = new Atlant(st, tOT, unitType, h, d, def, c);
-//  else if(unitType == "cavalry") ptr_unit = new Cavalry(st, tOT, unitType, h, d, def, c);
-
   return ptr_unit;
 }

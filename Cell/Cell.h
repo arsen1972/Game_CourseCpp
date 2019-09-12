@@ -1,5 +1,4 @@
 #pragma once
-//#define LOG_TRACE printf("function %s() (%s:%d)\n", __FUNCTION__, __FILE__, __LINE__);
 #include <string>
 using std::string;
 
@@ -7,10 +6,14 @@ class Cell
 {
 public:
    Cell();
-   Cell(string);
+   Cell(string, int, int);
    ~Cell();
    string getLands() const;
-  
+   int getX() const;
+   int getY() const;
+   
 private:
+  int X;
+  int Y;
   string lands;
 };
