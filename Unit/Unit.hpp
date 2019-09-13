@@ -4,6 +4,8 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <cstring>
+#include <vector>
 
 #include "Enums.h"
 #include "../Cell/Cell.h"
@@ -18,6 +20,7 @@ using std::cout;
 using std::endl;
 using std::ofstream;
 using std::ifstream;
+using std::vector;
 
 
 template <typename Status, typename TypeOfTerrain>
@@ -167,7 +170,7 @@ template <typename Status, typename TypeOfTerrain>
 void Unit<Status, TypeOfTerrain>::save()
 {
   string str_temp;
-  str_temp = unitType + "," + to_string(health) + "," + to_string(damage) + "," + to_string(defence) + "," + getCell()->getLands() + "," + to_string(getCell()->getX()) + "," + to_string(getCell()->getY()) + "," + to_string(getStatus()) + "," + to_string(getTOT()); 
+  str_temp = unitType + ";" + to_string(health) + ";" + to_string(damage) + ";" + to_string(defence) + ";" + getCell()->getLands() + ";" + to_string(getCell()->getX()) + ";" + to_string(getCell()->getY()) + ";" + to_string(getStatus()) + ";" + to_string(getTOT()); 
   
   ofstream fout;
   fout.open(PATH);
@@ -180,12 +183,32 @@ void Unit<Status, TypeOfTerrain>::save()
 // **************************************************** load()
 template <typename Status, typename TypeOfTerrain>
 string Unit<Status, TypeOfTerrain>::load()
-{
+{ 
+  vector<string> v_temp;
   string inString;
   ifstream fin(PATH);
   getline(fin, inString);
   fin.close();
-  return inString;
+  
+  char* temp_text = new char[inString.size()+1];
+  strcpy(temp_text, inString.c_str());
+  char* c_temp = strtok(temp_text, ";");
+  
+  while (c_temp != NULL)
+  {
+    v_temp.push_back(c_temp);
+    c_temp = strtok (NULL, ";");
+  }
+  
+  unitType = v_temp[0];
+  health = atoi(v_temp[1].c_str());
+  damage = atoi(v_temp[2].c_str());
+  defence = atoi(v_temp[3].c_str());
+  
+//  status = atoi(v_temp[7].c_str());
+//  typeOfTerrain = atoi(v_temp[8].c_str());
+  
+  return inString; //for (int i = 0; i < v_temp.size(); i++) { cout << "Element №" << i << " = " << v_temp[i] << endl; }
 }
 
 /*

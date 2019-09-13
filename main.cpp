@@ -52,11 +52,11 @@ int main()
   cout << endl;
   ptr_unit_02->printUnitFields();
   
-  ptr_unit_02->save();
+//  ptr_unit_02->save();
   delete ptr_unit_02;
   
   Unit<Status, TypeOfTerrain>* ptr_unit_03 = builderFactory->getUnit(status, tOT, unitType_2, health_0, damage_0, defence, &c);
-  cout << "\nПолучена строка: " << ptr_unit_03->load() << endl; // распарсить и передать в конструктор
+  cout << "\nПолучена строка: \n" << ptr_unit_03->load() << endl; // распарсить и передать в конструктор
   cout << endl;
   ptr_unit_03->printUnitFields();
   

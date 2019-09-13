@@ -75,8 +75,8 @@ void Builder::printUnitFields() const
   cout << "Printing here!!! From class Builder" << endl;
   cout << "unitType is \t" << this->getUnitType() << endl;
   cout << "Health = \t" << this->getHealth() << endl;
-//  cout << "Damage = \t" << this->getDamage() << endl;
-//  cout << "Defence = \t" << this->getDefence() << endl;
+  cout << "Damage = \t" << this->getDamage() << endl;
+  cout << "Defence = \t" << this->getDefence() << endl;
 //  cout << "Bonus factor = \t" << this->getCell()->getLands() << endl;
 //  cout << "Status unit = \t" << this->getStatusString() << endl;
 //  cout << "Status type of terrian = \t" << this->getTOT() << endl;
