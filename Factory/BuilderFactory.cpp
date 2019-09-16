@@ -20,9 +20,10 @@ BuilderFactory::~BuilderFactory()
   std::cout << "BuilderFactory is destroy!" << std::endl;
 }
 
-Unit<Status, TypeOfTerrain>* BuilderFactory::getUnit(Status st, TypeOfTerrain tOT, std::string & unitType, int h, int d, bool def, Cell* c)
+UnitCIVIL* BuilderFactory::getUnit(Status st, TypeOfTerrain tOT, std::string & unitType, int h, int d, bool def, Cell* c)
 {
-  Unit<Status, TypeOfTerrain>* ptr_unit = nullptr;
-  if(unitType == "builder") ptr_unit = new Builder(st, tOT, unitType, h, d, def, c);
+  UnitCIVIL* ptr_unit = nullptr;
+  //if(unitType == "builder")
+  ptr_unit = new Builder(st, tOT, unitType, h, d, def, c);
   return ptr_unit;
 }

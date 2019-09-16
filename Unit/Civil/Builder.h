@@ -1,15 +1,20 @@
 #pragma once
-#include "../Unit.hpp"
-#include "../Enums.h"
-#include "../../Factory/Factory.h"
-#include "../../Cell/Cell.h"
+
 #include <map>
 #include <string>
 
+#include "../Unit.hpp"
+#include "../Enums.h"
+#include "../Typedef.h"
+#include "../../Factory/Factory.h"
+#include "../../Factory/BuilderFactory.h"
+#include "../../Cell/Cell.h"
 
-class Builder : public Unit<Status, TypeOfTerrain>
+class Builder : public UnitCIVIL
+
+// public Unitt // typedef Unit<Status, TypeOfTerrain> Unitt;
+//              public UnitCIVIL // typedef Unit<CIVIL, TypeOfTerrain> UnitCIVIL;
 {
-typedef Unit<Status, TypeOfTerrain> Unitt;
 
 public:
 
@@ -21,9 +26,9 @@ public:
   Cell* getLands();
   Status getStatus() const override;
   TypeOfTerrain getTOT() const override;
-
+  void buildBuilderFactory() override;
+ 
   std::string getStatusString() const; // only for print
-  Factory* buildBuilderFactory();
   
   int getAttackBonus();
   int getDefenceBonus();

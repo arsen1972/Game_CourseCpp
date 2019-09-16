@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include "Universal.h"
+#include "../Enums.h"
 #include "../../Cell/Cell.h"
 #include "../Unit.hpp"
 using std::map;
@@ -30,7 +31,6 @@ int Universal::getHealth() const
 }
 
 // ****************************************************   setHealth()
-
 void Universal::setHealth(int h)
 { this->Unitt::setHealth(h);
 }
@@ -78,9 +78,10 @@ void Universal::printUnitFields() const
   cout << "Health = \t" << this->getHealth() << endl;
   cout << "Damage = \t" << this->getDamage() << endl;
   cout << "Defence = \t" << this->getDefence() << endl;
-  cout << "Bonus factor = \t" << this->getCell()->getLands() << endl;
+//  cout << "Bonus factor = \t" << this->getCell()->getLands() << endl;
   cout << "Status unit = \t" << this->getStatusString() << endl;
-  cout << "Status type of terrian = \t" << this->getTOT() << endl;
+//  cout << "Status type of terrian = \t" << this->getTOT() << endl;
+  cout << endl;
 }
 
 // **************************************************** getAttackBonus()
@@ -97,10 +98,19 @@ int Universal::getDefenceBonus()
 std::map<string, int> Universal::unitAttackBonus = { {"plain", 11}, {"forest", 22}, {"sea", -22} };
 std::map<string, int> Universal::unitDefenceBonus = { {"plain", -22}, {"forest", -44}, {"sea", 44} };
 
+
+
+// ****************************************************   buildBuilderFactory()
+void Universal::buildBuilderFactory()
+{ 
+  cout << "UniversalFactory is done virtual" << endl;
+  cout << endl;
+}
+
 /*
 // метод строительства фабрики
 // *************************************************** Factory* buildBuilderFactory()
-Factory* Universal::buildBuilderFactory(string uT)
+UniversalFactory* Universal::buildBuilderFactory(string uT)
 { 
   Factory* newDep;
   if (uT == "universal") newDep = new UniversalFactory();

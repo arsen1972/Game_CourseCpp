@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
+#include <vector>
+
 using std::string;
+using std::vector;
 
 class Cell
 {
@@ -16,4 +19,6 @@ private:
   int X;
   int Y;
   string lands;
+  
+//  static vector<vector<Cell*>> karta;
 };

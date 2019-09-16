@@ -31,3 +31,5 @@ int Cell::getX() const
 int Cell::getY() const
 { return this->Y;
 }
+
+// ************************************************  vector<vector<Cell*>> initializ

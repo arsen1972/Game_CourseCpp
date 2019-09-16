@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include "Builder.h"
+#include "../Enums.h"
 #include "../../Cell/Cell.h"
 #include "../Unit.hpp"
 using std::map;
@@ -10,7 +11,7 @@ using std::cout;
 using std::endl;
 
 // ***************************************************** Builder(Status, TypeOfTerrainstring, int, int, bool, Cell*)
-Builder::Builder(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : Unitt(st, tOT, uT, h, d, def, c)
+Builder::Builder(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : UnitCIVIL(st, tOT, uT, h, d, def, c)
 { cout << "Обьект Builder" << endl;
 }
 
@@ -21,42 +22,42 @@ Builder::~Builder()
 
 // ***************************************************** getUnitType()
 string Builder::getUnitType() const
-{ return this->Unitt::getUnitType();
+{ return this->UnitCIVIL::getUnitType();
 }
 
 // ***************************************************** getHealth()
 int Builder::getHealth() const
-{ return this->Unitt::getHealth();
+{ return this->UnitCIVIL::getHealth();
 }
 
 // ****************************************************   setHealth()
 void Builder::setHealth(int h)
-{ this->Unitt::setHealth(h);
+{ this->UnitCIVIL::setHealth(h);
 }
 
 // ***************************************************** getDamage()
 int Builder::getDamage() const
-{ return this->Unitt::getDamage();
+{ return this->UnitCIVIL::getDamage();
 }
 
 // ***************************************************** getDefence()
 bool Builder::getDefence() const
-{ return this->Unitt::getDefence();
+{ return this->UnitCIVIL::getDefence();
 }
 
 // **************************************************** getCell()
 Cell* Builder::getCell() const
-{ return this->Unitt::getCell();
+{ return this->UnitCIVIL::getCell();
 }
 
 // **************************************************** getStatus()
 Status Builder::getStatus() const
-{ return this->Unitt::getStatus();
+{ return this->UnitCIVIL::getStatus();
 }
 
 // **************************************************** getTOT()
 TypeOfTerrain Builder::getTOT() const
-{ return this->Unitt::getTOT();
+{ return this->UnitCIVIL::getTOT();
 }
 
 // **************************************************** getStatusString()  only for print
@@ -78,9 +79,8 @@ void Builder::printUnitFields() const
   cout << "Damage = \t" << this->getDamage() << endl;
   cout << "Defence = \t" << this->getDefence() << endl;
 //  cout << "Bonus factor = \t" << this->getCell()->getLands() << endl;
-//  cout << "Status unit = \t" << this->getStatusString() << endl;
+  cout << "Status unit = \t" << this->getStatusString() << endl; // getStatusString() 
 //  cout << "Status type of terrian = \t" << this->getTOT() << endl;
-  
   cout << endl;
 }
 
@@ -98,10 +98,19 @@ int Builder::getDefenceBonus()
 std::map<string, int> Builder::unitAttackBonus = { {"plain", 11}, {"forest", 22}, {"sea", -22} };
 std::map<string, int> Builder::unitDefenceBonus = { {"plain", -22}, {"forest", -44}, {"sea", 44} };
 
-/*
 // метод строительства фабрики
-// *************************************************** Factory* buildBuilderFactory()
-Factory* Builder::buildBuilderFactory(string uT)
+
+// ****************************************************   buildBuilderFactory()
+void Builder::buildBuilderFactory()
+{ 
+  cout << "BuilderFactory is done virtual" << endl;
+  cout << endl;
+}
+
+/*
+
+ **************************************************** buildBuilderFactory()
+BuilderFactory* Builder::buildBuilderFactory()
 { 
   Factory* newDep;
   if (uT == "Builder") newDep = new BuilderFactory();

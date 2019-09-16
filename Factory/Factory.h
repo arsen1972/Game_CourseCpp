@@ -1,6 +1,7 @@
 #pragma once
 #include "../Unit/Unit.hpp"
 #include "../Unit/Enums.h"
+#include "../Unit/Typedef.h"
 #include "../Cell/Cell.h"
 
 #include <iostream>
@@ -16,9 +17,6 @@ class Factory
 public:
   Factory();
   virtual ~Factory();
-  virtual Unit<Status, TypeOfTerrain>* getUnit(Status, TypeOfTerrain, string&, int, int, bool, Cell*);
-  void addDepartment(Factory*);
+  Unitt* getUnit(Status, TypeOfTerrain, string&, int, int, bool, Cell*);
   
-private:
-  vector<Factory*>departments;
 };

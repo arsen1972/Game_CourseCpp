@@ -2,6 +2,7 @@
 
 #include "Factory.h"
 #include "../Unit/Unit.hpp"
+#include "../Unit/Typedef.h"
 #include <string>
 
 
@@ -10,5 +11,5 @@ class BuilderFactory : public Factory
 public:
   BuilderFactory();
   ~BuilderFactory();
-  Unit<Status, TypeOfTerrain>* getUnit(Status, TypeOfTerrain, std::string &, int, int, bool, Cell*) override;
+  UnitCIVIL* getUnit(Status, TypeOfTerrain, std::string &, int, int, bool, Cell*);
 };
