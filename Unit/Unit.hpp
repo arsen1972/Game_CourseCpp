@@ -226,8 +226,8 @@ void Unit<stat, TOT>::buildBuilderFactory()
 // ***********************************************************************************************
 // *******************************************  template specialization for CIVIL units  *********
 // ***********************************************************************************************
-template <typename TOT> // template <Status ST, typename TOT>
-class Unit<CIVIL, TOT> // class Unit <CIVIL, typename TOT> // class Unit <CIVIL, TypeOfTerrain>
+template <typename TOT>
+class Unit<CIVIL, TOT>
 {
 // *************************************   Constructor/destructor
  public:
@@ -269,8 +269,8 @@ class Unit<CIVIL, TOT> // class Unit <CIVIL, typename TOT> // class Unit <CIVIL,
  
 };
 
-template <typename TOT> // template <typename Status, typename TypeOfTerrain>
-Unit<CIVIL, TOT>::Unit()  // Unit<Status, TypeOfTerrain>
+template <typename TOT>
+Unit<CIVIL, TOT>::Unit()
 {}
 // ****************************************************   Constructor/destructor
 template <typename TOT> 
@@ -417,13 +417,17 @@ string Unit<CIVIL, TOT>::load()
     case 1: status = MILITARY; break;
     case 2: status = UNIVERSAL;
   }
-  
-  return inString; //for (int i = 0; i < v_temp.size(); i++) { cout << "Element №" << i << " = " << v_temp[i] << endl; }
+  return inString; 
 }
-
 
 // ****************************************************   buildBuilderFactory()
 template <typename TOT> 
 void Unit<CIVIL, TOT>::buildBuilderFactory()
 { cout << "BuilderFactory is done virtual" << endl;
 }
+
+// ***********************************************************************************************
+// *******************************************  template specialization for MILITARY units  *********
+// ***********************************************************************************************
+
+
