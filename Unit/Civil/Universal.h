@@ -23,7 +23,7 @@ public:
   Cell* getLands();
   Status getStatus() const override;
   TypeOfTerrain getTOT() const override;
-  void buildBuilderFactory() override;
+//  void buildBuilderFactory() override;
     
   std::string getStatusString() const; // only for print
 

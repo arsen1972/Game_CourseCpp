@@ -1,16 +1,20 @@
 #pragma once
 #include <fstream>
 #include <iostream>
+#include <iomanip>
 #include <map>
 #include <string>
 #include <cstring>
 #include <vector>
 
+#include "../Json/json.hpp"
+#define PATH_OF_SAVE "Save/save.json"
+
 #include "Enums.h"
+//#include "Typedef.h"
 #include "../Cell/Cell.h"
 //#include "../Factory/Factory.h"
-
-#define PATH_OF_SAVE "Save/saves.csv"
+//#include "../Factory/BuilderFactory.h"  // при разкомментировании ошибка "нет функций"
 
 using std::string;
 using std::to_string;
@@ -20,6 +24,9 @@ using std::endl;
 using std::ofstream;
 using std::ifstream;
 using std::vector;
+using json = nlohmann::json;
+//using namespace std;
+//class Factory;
 
 template <Status stat, typename TOT> // template <Status stat, TypeOfTerrain TypeOT>  
 class Unit
@@ -29,35 +36,33 @@ class Unit
   Unit();
   Unit(Status, TypeOfTerrain, string, int, int, bool, Cell*); 
   virtual ~Unit();
-  virtual string getUnitType() const;
+
   virtual void printUnitFields() const;
   virtual void move();
   void attack(Unit*);
   virtual void save();
   virtual string load();
-  virtual Cell* getCell() const;
-  virtual void buildBuilderFactory();
+  void buildBuilderFactory();
   
  private:                      // ***********************  fields  
+  Status status;
   string unitType;
   int health;
   int damage;
-  bool defence; 
-    
-  Cell* cell;
-   
-  Status status;
+  bool defence;
   TypeOfTerrain typeOfTerrain;
+  Cell* cell;
 
   protected:                   // ***********************  methods()
   
+  virtual Status getStatus() const;
+  virtual string getUnitType() const;
   virtual int getHealth() const;
   virtual void setHealth(int);
   virtual int getDamage() const;
   virtual bool getDefence() const;
-  virtual Status getStatus() const;
   virtual TypeOfTerrain getTOT() const;
-
+  virtual Cell* getCell() const;
   
   virtual int getAttackBonus() = 0;
   virtual int getDefenceBonus() = 0;
@@ -70,12 +75,12 @@ Unit<stat, TOT>::Unit()  // Unit<Status, TypeOfTerrain>
 // ****************************************************   Constructor/destructor
 template <Status stat, typename TOT> 
 Unit<stat, TOT>::Unit (Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : status(st), typeOfTerrain(tOT), unitType(uT), health(h), damage(d), defence(def), cell(c)
-{ cout << "Обьект Unit" << endl;
+{ cout << "   Unit is born" << endl;
 }
 
 template <Status stat, typename TOT> 
 Unit<stat, TOT>::~Unit()
-{ cout << "Обьект ~Unit" << endl;
+{ cout << "   ~Unit is annihilated" << endl;
 }
 // ****************************************************   getUnitType()
 template <Status stat, typename TOT> 
@@ -169,8 +174,7 @@ template <Status stat, typename TOT>
 void Unit<stat, TOT>::save()
 {
   string str_temp;
-  str_temp = unitType + ";" + to_string(health) + ";" + to_string(damage) + ";" + to_string(defence) + ";" + getCell()->getLands() + ";" + to_string(getCell()->getX()) + ";" + to_string(getCell()->getY()) + ";" + to_string(getStatus()) + ";" + to_string(getTOT()); 
-  
+  str_temp = unitType + ";" + to_string(health) + ";" + to_string(damage) + ";" + to_string(defence) + ";" + getCell()->getLands() + ";" + to_string(getCell()->getX()) + ";" + to_string(getCell()->getY()) + ";" + to_string(getStatus()) + ";" + to_string(getTOT());
   ofstream fout;
   fout.open(PATH_OF_SAVE);
   if (!fout.is_open()) {cout << "Ошибка открытия файла..." << endl;}
@@ -183,90 +187,53 @@ void Unit<stat, TOT>::save()
 template <Status stat, typename TOT>
 string Unit<stat, TOT>::load()
 { 
-  vector<string> v_temp;
   string inString;
-  ifstream fin(PATH_OF_SAVE);
-  getline(fin, inString);
-  fin.close();
-  
-  char* temp_text = new char[inString.size()+1];
-  strcpy(temp_text, inString.c_str());
-  char* c_temp = strtok(temp_text, ";");
-  
-  while (c_temp != NULL)
-  {
-    v_temp.push_back(c_temp);
-    c_temp = strtok (NULL, ";");
-  }
-  
-  unitType = v_temp[0];
-  health = atoi(v_temp[1].c_str());
-  damage = atoi(v_temp[2].c_str());
-  defence = atoi(v_temp[3].c_str());
-  
-  // по сохраненным/загруженным координатам берем элемент karta[x][y] (получаем указатель и им инициализируем объект)
-  
-  switch (atoi(v_temp[7].c_str()))
-  {
-    case 0: status = CIVIL; break;
-    case 1: status = MILITARY; break;
-    case 2: status = UNIVERSAL;
-  }
-  
-  return inString; //for (int i = 0; i < v_temp.size(); i++) { cout << "Element №" << i << " = " << v_temp[i] << endl; }
-}
-
-
-// ****************************************************   buildBuilderFactory()
-template <Status stat, typename TOT> 
-void Unit<stat, TOT>::buildBuilderFactory()
-{ cout << "BuilderFactory is done virtual" << endl;
+  return inString;
 }
 
 // ***********************************************************************************************
 // *******************************************  template specialization for CIVIL units  *********
 // ***********************************************************************************************
+class BuilderFactory;
 template <typename TOT>
 class Unit<CIVIL, TOT>
 {
 // *************************************   Constructor/destructor
- public:
+public:
   Unit();
   Unit(Status, TypeOfTerrain, string, int, int, bool, Cell*); 
   virtual ~Unit();
-  virtual string getUnitType() const;
+                             // ***********************  methods()
   virtual void printUnitFields() const;
   virtual void move();
   void attack(Unit*);
   virtual void save();
-  virtual string load();
-  virtual Cell* getCell() const;
-  virtual void buildBuilderFactory();
-  
- private:                      // ***********************  fields  
-  string unitType;
-  int health;
-  int damage;
-  bool defence; 
-    
-  Cell* cell;
-   
-  Status status;
-  TypeOfTerrain typeOfTerrain;
+  virtual Unit<CIVIL, TOT>* load();
+  virtual BuilderFactory* buildBuilderFactory();
+  virtual BuilderFactory* buildBuilderFactory(int x, int y);
 
-  protected:                   // ***********************  methods()
-  
+protected:          // ***********************  methods()
+    
+  virtual Status getStatus() const;
+  virtual string getUnitType() const;
   virtual int getHealth() const;
   virtual void setHealth(int);
   virtual int getDamage() const;
   virtual bool getDefence() const;
-  virtual Status getStatus() const;
   virtual TypeOfTerrain getTOT() const;
-
+  virtual Cell* getCell() const;
   
   virtual int getAttackBonus() = 0;
   virtual int getDefenceBonus() = 0;
  
+private:                      // ***********************  fields  
+  Status status;
+  string unitType;
+  int health;
+  int damage;
+  bool defence;
+  TypeOfTerrain typeOfTerrain;
+  Cell* cell;
 };
 
 template <typename TOT>
@@ -275,12 +242,12 @@ Unit<CIVIL, TOT>::Unit()
 // ****************************************************   Constructor/destructor
 template <typename TOT> 
 Unit<CIVIL, TOT>::Unit (Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : status(st), typeOfTerrain(tOT), unitType(uT), health(h), damage(d), defence(def), cell(c)
-{ cout << "Обьект Unit" << endl;
+{ cout << "   Unit is born" << endl;
 }
 
 template <typename TOT> 
 Unit<CIVIL, TOT>::~Unit()
-{ cout << "Обьект ~Unit" << endl;
+{ cout << "   ~Unit is annihilated" << endl;
 }
 // ****************************************************   getUnitType()
 template <typename TOT> 
@@ -320,8 +287,7 @@ Cell* Unit<CIVIL, TOT>::getCell() const
 // **************************************************** getStatus()
 template <typename TOT>
 Status Unit<CIVIL, TOT>::getStatus() const
-{
-  return this->status;
+{ return this->status;
 }
 
 // **************************************************** getTOT()
@@ -349,8 +315,7 @@ void Unit<CIVIL, TOT>::printUnitFields() const
 // ****************************************************   move()
 template <typename TOT> 
 void Unit<CIVIL, TOT>::move()
-{
-  cout << "Unit Топ-топ!" << endl;
+{ cout << "Unit Топ-топ!" << endl;
 }
 
 // ****************************************************   attack(Unit*)
@@ -373,57 +338,27 @@ void Unit<CIVIL, TOT>::attack(Unit* ptr_victim)
 template <typename TOT>
 void Unit<CIVIL, TOT>::save()
 {
-  string str_temp;
-  str_temp = unitType + ";" + to_string(health) + ";" + to_string(damage) + ";" + to_string(defence) + ";" + getCell()->getLands() + ";" + to_string(getCell()->getX()) + ";" + to_string(getCell()->getY()) + ";" + to_string(getStatus()) + ";" + to_string(getTOT()); 
-  
-  ofstream fout;
-  fout.open(PATH_OF_SAVE);
-  if (!fout.is_open()) {cout << "Ошибка открытия файла..." << endl;}
-  else  { fout << str_temp << endl;}
-  fout.close(); 
-  cout << "Объект успешно сохранен" << endl;
+
 }
 
 // **************************************************** load()
 template <typename TOT>
-string Unit<CIVIL, TOT>::load()
+Unit<CIVIL, TOT>* Unit<CIVIL, TOT>::load()
 { 
-  vector<string> v_temp;
-  string inString;
-  ifstream fin(PATH_OF_SAVE);
-  getline(fin, inString);
-  fin.close();
-  
-  char* temp_text = new char[inString.size()+1];
-  strcpy(temp_text, inString.c_str());
-  char* c_temp = strtok(temp_text, ";");
-  
-  while (c_temp != NULL)
-  {
-    v_temp.push_back(c_temp);
-    c_temp = strtok (NULL, ";");
-  }
-  
-  unitType = v_temp[0];
-  health = atoi(v_temp[1].c_str());
-  damage = atoi(v_temp[2].c_str());
-  defence = atoi(v_temp[3].c_str());
-  
-  // по сохраненным/загруженным координатам берем элемент karta[x][y] (получаем указатель и им инициализируем объект)
-  
-  switch (atoi(v_temp[7].c_str()))
-  {
-    case 0: status = CIVIL; break;
-    case 1: status = MILITARY; break;
-    case 2: status = UNIVERSAL;
-  }
-  return inString; 
+  Unit<CIVIL, TOT>* ptr_Unitt;
+  return ptr_Unitt; 
 }
 
 // ****************************************************   buildBuilderFactory()
 template <typename TOT> 
-void Unit<CIVIL, TOT>::buildBuilderFactory()
-{ cout << "BuilderFactory is done virtual" << endl;
+BuilderFactory* Unit<CIVIL, TOT>::buildBuilderFactory()
+{ 
+}
+
+// ****************************************************   buildBuilderFactory(int, int)
+template <typename TOT> 
+BuilderFactory* Unit<CIVIL, TOT>::buildBuilderFactory(int x, int y)
+{ 
 }
 
 // ***********************************************************************************************

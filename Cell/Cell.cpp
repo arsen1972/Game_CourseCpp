@@ -1,35 +1,34 @@
 #include <iostream>
 #include <string>
+
 #include "Cell.h"
+
 using std::string;
 
 // **************************************************** Cell()
 Cell::Cell() 
-{ this->lands = "sea";
-  this->X = 0;
-  this->Y = 0;
+{ 
+  this->x = 0;
+  this->y = 0;
+  this->lands = "plain";
 }
+
 // **************************************************** Cell(string, int, int)
-Cell::Cell(string l, int x, int y) : lands(l), X(x), Y(y)
-{
-}
+Cell::Cell(int x, int y, string l) : x(x), y(y), lands(l)
+{}
+
 // **************************************************** ~Cell()
 Cell::~Cell()
-{ //LOG_TRACE
-}
-// ************************************************  getLands()
-string Cell::getLands() const
-{ return this->lands;
-}
+{}
 
-// ************************************************  getX()
+// ****************************************************  getX()
 int Cell::getX() const
-{ return this->X;
-}
+{ return this->x;}
 
-// ************************************************  getY()
+// ****************************************************  getY()
 int Cell::getY() const
-{ return this->Y;
-}
+{ return this->y;}
 
-// ************************************************  vector<vector<Cell*>> initializ
+// ****************************************************  getLands()
+string Cell::getLands() const
+{ return this->lands;}

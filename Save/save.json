@@ -1,0 +1,10 @@
+{
+  "damage": 0,
+  "defence": false,
+  "health": 100,
+  "status": 0,
+  "typeOfTerrain": 0,
+  "unitType": "builder",
+  "x": 0,
+  "y": 1
+}

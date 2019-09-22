@@ -15,6 +15,11 @@ UniversalFactory::UniversalFactory()
   std::cout << "UniversalFactory is done!" << std::endl;
 }
 
+UniversalFactory::UniversalFactory(int x, int y) : x(x), y(y)
+{
+  std::cout << "UniversalFactory coordinates is done!" << std::endl;
+}
+
 UniversalFactory::~UniversalFactory()
 {
   std::cout << "UniversalFactory is destroy!" << std::endl;

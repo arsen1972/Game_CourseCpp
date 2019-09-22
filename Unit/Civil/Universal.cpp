@@ -99,7 +99,8 @@ std::map<string, int> Universal::unitAttackBonus = { {"plain", 11}, {"forest", 2
 std::map<string, int> Universal::unitDefenceBonus = { {"plain", -22}, {"forest", -44}, {"sea", 44} };
 
 
-
+/*
+// метод строительства фабрики
 // ****************************************************   buildBuilderFactory()
 void Universal::buildBuilderFactory()
 { 
@@ -107,20 +108,13 @@ void Universal::buildBuilderFactory()
   cout << endl;
 }
 
-/*
-// метод строительства фабрики
 // *************************************************** Factory* buildBuilderFactory()
-UniversalFactory* Universal::buildBuilderFactory(string uT)
+UniversalFactory* Universal::buildBuilderFactory()
 { 
   Factory* newDep;
-  if (uT == "universal") newDep = new UniversalFactory();
+ // if (uT == "universal") 
+  newDep = new UniversalFactory();
 
   return newDep;
-}
-*/
-/*
-// ****************************************************   buildBuilderFactory()
-void Universal::buildBuilderFactory() const
-{ cout << "\nBuilderFactory is done by universal" << endl;
 }
 */

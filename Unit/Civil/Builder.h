@@ -10,25 +10,27 @@
 #include "../../Factory/BuilderFactory.h"
 #include "../../Cell/Cell.h"
 
-class Builder : public UnitCIVIL
+class BuilderFactory;
 
-// public Unitt // typedef Unit<Status, TypeOfTerrain> Unitt;
-//              public UnitCIVIL // typedef Unit<CIVIL, TypeOfTerrain> UnitCIVIL;
+class Builder : public UnitCIVIL // typedef Unit<CIVIL, TypeOfTerrain> UnitCIVIL;
 {
-
 public:
-
   Builder(Status, TypeOfTerrain, string, int, int, bool, Cell*);
   ~Builder();
   string getUnitType() const override;
-  void printUnitFields() const override;
   Cell* getCell() const override;
-  Cell* getLands();
+  Cell* getLands() const;
   Status getStatus() const override;
-  TypeOfTerrain getTOT() const override;
-  void buildBuilderFactory() override;
- 
   std::string getStatusString() const; // only for print
+  TypeOfTerrain getTOT() const override;
+  void printUnitFields() const override;
+  void move() override;
+  void save() override;
+  
+// *************************************************  add method() 
+  UnitCIVIL* load() override;
+  BuilderFactory* buildBuilderFactory() override;
+  BuilderFactory* buildBuilderFactory(int x, int y) override;
   
   int getAttackBonus();
   int getDefenceBonus();
@@ -38,7 +40,6 @@ protected:
   void setHealth(int) override;
   int getDamage() const override;
   bool getDefence() const override;
-  void move() override;
 
 private:
   static map<string, int> unitAttackBonus; 
