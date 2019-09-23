@@ -91,8 +91,8 @@ void Builder::printUnitFields() const
   cout << "   Bonus factor = \t" << this->getCell()->getLands() << endl;
   cout << "   Status unit = \t" << this->getStatusString() << endl; // getStatusString() 
   cout << "   Status type of terrian = \t" << this->getTOT() << endl;
-  cout << "   X = \t\t" << this->getCell()->getX() << endl;
-  cout << "   Y = \t\t" << this->getCell()->getY() << endl;
+  cout << "   x = \t\t" << this->getCell()->getX() << endl;
+  cout << "   y = \t\t" << this->getCell()->getY() << endl;
   cout << endl;
 }
 
@@ -116,7 +116,7 @@ void Builder::save()
   if (!fout.is_open()) {cout << "Ошибка открытия файла..." << endl;}
   else  { fout << std::setw(2) << j << endl;} //  
   fout.close(); 
-  cout << "From Builder: объект успешно сохранен с параметрами:" << endl;
+  cout << "   From Builder: объект успешно сохранен с параметрами:" << endl;
   cout << std::setw(2) << j << endl;
   return;
 }
@@ -129,9 +129,6 @@ UnitCIVIL* Builder::load()
   json j;
   fin >> j;
   fin.close();
-  
-//  int x = ;
-//  int y = ;
 
   UnitCIVIL* ptr_UnitCIVIL = new Builder(
   j.at("status"), 
