@@ -7,8 +7,8 @@
 #include "../../Cell/Karta.h"
 #include "../Unit.hpp"
 
-#include "../../Json/json.hpp"
 #define PATH_OF_SAVE "Save/save.json"
+#include "../../Json/json.hpp"
 using json = nlohmann::json;
 
 using std::map;
@@ -18,7 +18,6 @@ using std::endl;
 using std::ofstream;
 using std::ifstream;
 
-//vector<vector<Cell*>> karta;
 class BuilderFactory;
 
 // ***************************************************** Builder(Status, TypeOfTerrainstring, int, int, bool, Cell*)
@@ -114,7 +113,7 @@ void Builder::save()
   ofstream fout;
   fout.open(PATH_OF_SAVE);
   if (!fout.is_open()) {cout << "Ошибка открытия файла..." << endl;}
-  else  { fout << std::setw(2) << j << endl;} //  
+  else  { fout << j << endl;} //  
   fout.close(); 
   cout << "   From Builder: объект успешно сохранен с параметрами:" << endl;
   cout << std::setw(2) << j << endl;
