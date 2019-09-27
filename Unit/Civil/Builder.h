@@ -1,7 +1,7 @@
 #pragma once
 
-#include <map>
 #include <string>
+#include <memory>
 
 #include "../Unit.hpp"
 #include "../Enums.h"
@@ -19,21 +19,19 @@ public:
   ~Builder();
   string getUnitType() const override;
   Cell* getCell() const override;
+  void setCell(Cell*) override;
   Cell* getLands() const;
   Status getStatus() const override;
   std::string getStatusString() const; // only for print
   TypeOfTerrain getTOT() const override;
   void printUnitFields() const override;
-  void move() override;
+  void move(Cell*) override;
   void save() override;
+  void heal(UnitCIVIL*) override;
   
 // *************************************************  add method() 
   UnitCIVIL* load() override;
-  BuilderFactory* buildBuilderFactory() override;
-  BuilderFactory* buildBuilderFactory(int x, int y) override;
-  
-  int getAttackBonus();
-  int getDefenceBonus();
+  Factory* buildBuilderFactory() override;
   
 protected:
   int getHealth() const override;
@@ -42,6 +40,5 @@ protected:
   bool getDefence() const override;
 
 private:
-  static map<string, int> unitAttackBonus; 
-  static map<string, int> unitDefenceBonus;
+
 };

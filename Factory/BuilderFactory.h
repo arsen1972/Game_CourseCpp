@@ -11,11 +11,7 @@ class BuilderFactory : public Factory
 {
 public:
   BuilderFactory();
-  BuilderFactory(int x, int y);
   ~BuilderFactory();
-  UnitCIVIL* getUnit(Status, TypeOfTerrain, std::string &, int, int, bool, Cell*);
-  
-private:
-  int x;
-  int y;
+  UnitCIVIL* getUnit(Status, TypeOfTerrain, std::string &, int, int, bool, Cell*) override;
+  void save() override;
 };

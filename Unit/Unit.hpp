@@ -6,6 +6,7 @@
 #include <string>
 #include <cstring>
 #include <vector>
+#include <memory>
 
 #include "../Json/json.hpp"
 #define PATH_OF_SAVE "Save/save.json"
@@ -13,8 +14,9 @@
 #include "Enums.h"
 //#include "Typedef.h"
 #include "../Cell/Cell.h"
+#include "../ObjectGame/ObjectGame.h"
 //#include "../Factory/Factory.h"
-//#include "../Factory/BuilderFactory.h"  // при разкомментировании ошибка "нет функций"
+//#include "../Factory/BuilderFactory.h"
 
 using std::string;
 using std::to_string;
@@ -40,6 +42,7 @@ class Unit
   virtual void printUnitFields() const;
   virtual void move();
   void attack(Unit*);
+  void heal(Unit*);
   virtual void save();
   virtual string load();
   void buildBuilderFactory();
@@ -69,9 +72,10 @@ class Unit
  
 };
 
-template <Status stat, typename TOT> // template <typename Status, typename TypeOfTerrain>
-Unit<stat, TOT>::Unit()  // Unit<Status, TypeOfTerrain>
-{}
+template <Status stat, typename TOT>
+Unit<stat, TOT>::Unit()
+{
+}
 // ****************************************************   Constructor/destructor
 template <Status stat, typename TOT> 
 Unit<stat, TOT>::Unit (Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : status(st), typeOfTerrain(tOT), unitType(uT), health(h), damage(d), defence(def), cell(c)
@@ -169,6 +173,7 @@ void Unit<stat, TOT>::attack(Unit* ptr_victim)
   
   cout << "\n  . . . . . . . . . . . . . . . .   The attack is over" << endl;
 }
+
 // **************************************************** save()
 template <Status stat, typename TOT>
 void Unit<stat, TOT>::save()
@@ -191,12 +196,15 @@ string Unit<stat, TOT>::load()
   return inString;
 }
 
+
+
+
 // ***********************************************************************************************
 // *******************************************  template specialization for CIVIL units  *********
 // ***********************************************************************************************
-class BuilderFactory;
+class Factory; //  class BuilderFactory;
 template <typename TOT>
-class Unit<CIVIL, TOT>
+class Unit<CIVIL, TOT> : public ObjectGame
 {
 // *************************************   Constructor/destructor
 public:
@@ -205,12 +213,11 @@ public:
   virtual ~Unit();
                              // ***********************  methods()
   virtual void printUnitFields() const;
-  virtual void move();
-  void attack(Unit*);
+  virtual void move(Cell*);
+  virtual void heal(Unit<CIVIL, TOT>*);
   virtual void save();
   virtual Unit<CIVIL, TOT>* load();
-  virtual BuilderFactory* buildBuilderFactory();
-  virtual BuilderFactory* buildBuilderFactory(int x, int y);
+  virtual Factory* buildBuilderFactory();
 
 protected:          // ***********************  methods()
     
@@ -222,9 +229,7 @@ protected:          // ***********************  methods()
   virtual bool getDefence() const;
   virtual TypeOfTerrain getTOT() const;
   virtual Cell* getCell() const;
-  
-  virtual int getAttackBonus() = 0;
-  virtual int getDefenceBonus() = 0;
+  virtual void setCell(Cell*);
  
 private:                      // ***********************  fields  
   Status status;
@@ -242,12 +247,12 @@ Unit<CIVIL, TOT>::Unit()
 // ****************************************************   Constructor/destructor
 template <typename TOT> 
 Unit<CIVIL, TOT>::Unit (Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : status(st), typeOfTerrain(tOT), unitType(uT), health(h), damage(d), defence(def), cell(c)
-{ cout << "   Unit is born" << endl;
+{ //cout << "   Unit is born" << endl;
 }
 
 template <typename TOT> 
 Unit<CIVIL, TOT>::~Unit()
-{ cout << "   ~Unit is annihilated" << endl;
+{ //cout << "   ~Unit is annihilated" << endl;
 }
 // ****************************************************   getUnitType()
 template <typename TOT> 
@@ -278,10 +283,18 @@ bool Unit<CIVIL, TOT>::getDefence() const
 { return this->defence;
 }
 
-// **************************************************** getCell()
+// **************************************************** getCell(Cell*)
 template <typename TOT>
 Cell* Unit<CIVIL, TOT>::getCell() const
 { return this->cell;
+}
+
+// **************************************************** setCell()
+template <typename TOT>
+void Unit<CIVIL, TOT>::setCell(Cell* c)
+{ 
+  cell = c;
+  return ;
 }
 
 // **************************************************** getStatus()
@@ -308,37 +321,29 @@ void Unit<CIVIL, TOT>::printUnitFields() const
   cout << "Damage = \t" << this->damage << endl;
   cout << "Defence = \t" << this->defence << endl;
   cout << "Bonus factor = \t" << this->getCell()->getLands() << endl;
-  cout << "Status unit = \t" << this->getStatus() << endl; 
+  cout << "Status unit = \t" << this->getStatus() << endl;
+  cout << "Object coordinates: x = " << this->getCell()->getX() << ", y = " << this->getCell()->getY() << endl; 
   cout << endl;
 }
 
-// ****************************************************   move()
+// **************************************************** move(Cell*)
 template <typename TOT> 
-void Unit<CIVIL, TOT>::move()
-{ cout << "Unit Топ-топ!" << endl;
+void Unit<CIVIL, TOT>::move(Cell* c)
+{ 
+  cell = c;
+  cout << "Unit go to cell with coordinates x = " << getCell()->getY() << ", y = " << getCell()->getX() << endl;
 }
 
-// ****************************************************   attack(Unit*)
+// **************************************************** heal(Unit<CIVIL, TOT>*)
 template <typename TOT> 
-void Unit<CIVIL, TOT>::attack(Unit* ptr_victim)
-{ 
-  int bonus = this->getAttackBonus();
-  int defenceBonus = ptr_victim->getDefenceBonus();
-  cout << "\n  ******************************   The attack has begin" << endl;
-  cout << "bonus = " << bonus << endl;
-  cout << "defenceBonus = " << defenceBonus << endl;
-  cout << "Current damage = damage + bonus + defenceBonus = " << bonus + this->damage + defenceBonus<< endl;
-  
-  ptr_victim->setHealth((ptr_victim->getHealth()) - abs((this->damage + bonus + defenceBonus)));
-  this->health = this->health - abs((this->damage)/10);
-  
-  cout << "\n  . . . . . . . . . . . . . . . .   The attack is over" << endl;
+void Unit<CIVIL, TOT>::heal(Unit<CIVIL, TOT>* s_Ptr)
+{ cout << "Unit is heal" << endl;
 }
+
 // **************************************************** save()
 template <typename TOT>
 void Unit<CIVIL, TOT>::save()
 {
-
 }
 
 // **************************************************** load()
@@ -351,16 +356,16 @@ Unit<CIVIL, TOT>* Unit<CIVIL, TOT>::load()
 
 // ****************************************************   buildBuilderFactory()
 template <typename TOT> 
-BuilderFactory* Unit<CIVIL, TOT>::buildBuilderFactory()
+Factory* Unit<CIVIL, TOT>::buildBuilderFactory()
 { 
 }
-
+/*
 // ****************************************************   buildBuilderFactory(int, int)
 template <typename TOT> 
 BuilderFactory* Unit<CIVIL, TOT>::buildBuilderFactory(int x, int y)
 { 
 }
-
+*/
 // ***********************************************************************************************
 // *******************************************  template specialization for MILITARY units  *********
 // ***********************************************************************************************

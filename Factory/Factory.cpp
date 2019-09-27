@@ -12,34 +12,22 @@ using std::endl;
 
 // *****************************************************************   Factory()
 Factory::Factory()
-{ //LOG_TRACE
+{ //cout << "   Factory is done" << endl;
 }
 
 // *****************************************************************   ~Factory()
 Factory::~Factory()
-{ //LOG_TRACE
-  //std::for_each(departments.begin(), departments.end(), [](Factory* ptr_factory){ delete ptr_factory;} );
+{ //cout << "   ~Factory is destroy" << endl;
 }
 
-/*// ************************************************** getUnit(Status, TypeOfTerrain, unitType, h, d, def,c)
-Unitt* Factory::getUnit(Status st, TypeOfTerrain tOT, string& unitType, int h, int d, bool def, Cell* c)
+// ************************************************** getUnit(Status, TypeOfTerrain, unitType, h, d, def,c)
+UnitCIVIL* Factory::getUnit(Status st, TypeOfTerrain tOT, string& unitType, int h, int d, bool def, Cell* c)
 {
-  Unitt* ptr_unit = nullptr;
-  std::vector<Factory*>::iterator iter = departments.begin();
-  
-  while ( ptr_unit == nullptr && iter != departments.end() )
-  {
-    ptr_unit = (*iter)->getUnit(st, tOT, unitType, h, d, def, c);
-    ++iter;
-  }
-  return ptr_unit;
+//  return ptr_unit;
 }
-*/
-/*
-// *****************************************************   getUnit(const std::string & unitType)
-void Factory::addDepartment(Factory* ptr_factory)
+
+// ***************************************************************** save()
+void Factory::save()
 {
-  departments.push_back(ptr_factory);
-  return;
+    std::cout << "   Factory is save" << std::endl;
 }
-*/

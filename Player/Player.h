@@ -1,4 +1,7 @@
+#pragma once
+
 #include <iostream>
+#include <memory>
 #include <string>
 #include <list>
 
@@ -6,10 +9,12 @@
 #include "../Unit/Typedef.h"
 
 #include "../Factory/Factory.h"
+#include "../ObjectGame/ObjectGame.h"
 
 using std::cout;
 using std::endl;
 using std::list;
+using std::shared_ptr;
 
 class Player
 {
@@ -17,13 +22,13 @@ class Player
   Player();
   Player(string &);
   virtual ~Player();
-  void addlistOfFactory(Factory*);
-  void addlistOfUnitCIVIL(UnitCIVIL*);
+  void addToList(shared_ptr <ObjectGame>);
+//  void addlistOfUnitCIVIL(UnitCIVIL*);
   
   private:
   string name;
-  list<Factory*> listOfFactory;
-  list<UnitCIVIL*> listOfUnitCIVIL;
+  list<shared_ptr <ObjectGame>> listOfObjectGame;
+//  list<UnitCIVIL*> listOfUnitCIVIL;
   
   protected:
 //  void save();

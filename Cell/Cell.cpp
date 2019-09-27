@@ -14,7 +14,7 @@ Cell::Cell()
 }
 
 // **************************************************** Cell(string, int, int)
-Cell::Cell(int x, int y, string l) : x(x), y(y), lands(l)
+Cell::Cell(int x, int y, string l) : x(y), y(x), lands(l)
 {}
 
 // **************************************************** ~Cell()

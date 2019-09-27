@@ -1,10 +1,11 @@
 #include <iostream>
 #include <string>
-#include <map>
+#include <memory>
+
 #include "Builder.h"
 #include "../Enums.h"
 #include "../../Cell/Cell.h"
-#include "../../Cell/Karta.h"
+#include "../../Cell/GameMap.h"
 #include "../Unit.hpp"
 
 #define PATH_OF_SAVE "Save/save.json"
@@ -22,12 +23,12 @@ class BuilderFactory;
 
 // ***************************************************** Builder(Status, TypeOfTerrainstring, int, int, bool, Cell*)
 Builder::Builder(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : UnitCIVIL(st, tOT, uT, h, d, def, c)
-{ cout << "   Builder is born" << endl;
+{ //cout << "   Builder is born" << endl;
 }
 
 // ***************************************************** ~Builder()
 Builder::~Builder()
-{ cout << "   ~Builder is annihilated" << endl;
+{ //cout << "   ~Builder is annihilated" << endl;
 }
 
 // ***************************************************** getUnitType()
@@ -60,6 +61,13 @@ Cell* Builder::getCell() const
 { return this->UnitCIVIL::getCell();
 }
 
+// **************************************************** setCell(Cell*)
+void Builder::setCell(Cell* c)
+{ 
+  this->UnitCIVIL::setCell(c);
+  return;
+}
+
 // **************************************************** getStatus()
 Status Builder::getStatus() const
 { return this->UnitCIVIL::getStatus();
@@ -75,11 +83,18 @@ string Builder::getStatusString() const
 { return "CIVIL";
 }
 
-// ****************************************************   move()
-void Builder::move()
-{ cout << "Builder Топ-топ!" << endl;
+// **************************************************** move(Cell*)
+void Builder::move(Cell* c)
+{ 
+  this->setCell(c);
+  cout << "   Builder go to cell with coordinates x = " << getCell()->getX() << ", y = " << getCell()->getY() << endl;
 }
 
+// **************************************************** heal(UnitCIVIL*)
+void Builder::heal(UnitCIVIL*  ptr_uT)
+{ cout << "   Builder heal other builder" << endl;
+  //return;
+}
 // ***************************************************** printUnitFields()
 void Builder::printUnitFields() const
 {
@@ -90,13 +105,11 @@ void Builder::printUnitFields() const
   cout << "   Bonus factor = \t" << this->getCell()->getLands() << endl;
   cout << "   Status unit = \t" << this->getStatusString() << endl; // getStatusString() 
   cout << "   Status type of terrian = \t" << this->getTOT() << endl;
-  cout << "   x = \t\t" << this->getCell()->getX() << endl;
-  cout << "   y = \t\t" << this->getCell()->getY() << endl;
+  cout << "   Object coordinates: x = " << this->getCell()->getX() << ", y = " << this->getCell()->getY() << endl;
   cout << endl;
 }
 
 // ****************************************************save()
-
 void Builder::save()
 { 
   json j = {
@@ -112,15 +125,14 @@ void Builder::save()
 
   ofstream fout;
   fout.open(PATH_OF_SAVE);
-  if (!fout.is_open()) {cout << "Ошибка открытия файла..." << endl;}
+  if (!fout.is_open()) {cout << "Error of open file ..." << endl;}
   else  { fout << j << endl;} //  
   fout.close(); 
-  cout << "   From Builder: объект успешно сохранен с параметрами:" << endl;
-  cout << std::setw(2) << j << endl;
+  cout << "   From Builder: object save successfully" << endl;
+  cout << "   " << j << endl; // << setw(2)
   return;
 }
 
-// Builder::Builder(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c)
 // **************************************************** UnitCIVIL* load()
 UnitCIVIL* Builder::load()
 {
@@ -136,41 +148,18 @@ UnitCIVIL* Builder::load()
   j.at("health"), 
   j.at("damage"), 
   j.at("defence"),
-  karta[j.at("x")][j.at("y")] //  getCell()
+  gameMap[j.at("y")][j.at("x")]
   );
   
   return ptr_UnitCIVIL;
 }
 
-// **************************************************** getAttackBonus()
-int Builder::getAttackBonus()
-{ return unitAttackBonus[this->getCell()->getLands()];
-}
-
-// **************************************************** getDefenceBonus()
-int Builder::getDefenceBonus()
-{ return (unitDefenceBonus[this->getCell()->getLands()])*(this->getDefence());
-}
-
-//*************************************** unitAttackBonus & unitDefenceBonus
-std::map<string, int> Builder::unitAttackBonus = { {"plain", 11}, {"forest", 22}, {"sea", -22} };
-std::map<string, int> Builder::unitDefenceBonus = { {"plain", -22}, {"forest", -44}, {"sea", 44} };
-
 // метод строительства фабрики BuilderFactory* buildBuilderFactory()
 // **************************************************** buildBuilderFactory()
-BuilderFactory* Builder::buildBuilderFactory()
+Factory* Builder::buildBuilderFactory()
 { 
   BuilderFactory* newDep;
   newDep = new BuilderFactory();
-  cout << "   Сообщение из \"Builder\": New BuilderFactory is DONE!!!!" << endl;
-  return newDep;
-}
-
-// **************************************************** buildBuilderFactory(int x, int y)
-BuilderFactory* Builder::buildBuilderFactory(int x, int y)
-{ 
-  BuilderFactory* newDep;
-  newDep = new BuilderFactory(x, y);
-  cout << "   Сообщение из \"Builder\": New BuilderFactory is DONE!!!!" << endl;
+  cout << "   Message from \"Builder\": New BuilderFactory is DONE!!!!" << endl;
   return newDep;
 }

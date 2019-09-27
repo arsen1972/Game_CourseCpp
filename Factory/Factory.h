@@ -1,5 +1,7 @@
 #pragma once
 #include "../Unit/Unit.hpp"
+#include "../Player/Player.h"
+#include "../ObjectGame/ObjectGame.h"
 //#include "../Unit/Civil/Builder.h"
 //#include "../Unit/Enums.h"
 #include "../Unit/Typedef.h"
@@ -13,15 +15,17 @@
 using std::string;
 using std::vector;
 
-class Factory
+class Player;
+class Factory : public ObjectGame
 {
 public:
   Factory();
   virtual ~Factory() = 0;
-//  Unitt* getUnit(Status, TypeOfTerrain, string&, int, int, bool, Cell*);
+  virtual UnitCIVIL* getUnit(Status, TypeOfTerrain, string&, int, int, bool, Cell*);
+  virtual void save();
   
 private:
-//  std::vector<Factory*>departments;
+  string factoryType;
   Cell* cell;
-  
+  Player* playerName;
 };
