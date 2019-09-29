@@ -22,15 +22,15 @@ class Player
   Player();
   Player(string &);
   virtual ~Player();
+  string getName() const;
   void addToList(shared_ptr <ObjectGame>);
-//  void addlistOfUnitCIVIL(UnitCIVIL*);
+  void saveGame() const;
+//  virtual void save() const;
   
   private:
   string name;
   list<shared_ptr <ObjectGame>> listOfObjectGame;
-//  list<UnitCIVIL*> listOfUnitCIVIL;
   
   protected:
-//  void save();
 //  void load();
 };

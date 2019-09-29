@@ -26,8 +26,8 @@ public:
   TypeOfTerrain getTOT() const override;
   void printUnitFields() const override;
   void move(Cell*) override;
-  void save() override;
-  void heal(UnitCIVIL*) override;
+  void save() const override;
+//  void heal(UnitCIVIL*) const override;
   
 // *************************************************  add method() 
   UnitCIVIL* load() override;

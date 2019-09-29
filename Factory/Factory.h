@@ -20,12 +20,18 @@ class Factory : public ObjectGame
 {
 public:
   Factory();
+  Factory(Cell*);
   virtual ~Factory() = 0;
   virtual UnitCIVIL* getUnit(Status, TypeOfTerrain, string&, int, int, bool, Cell*);
   virtual void save();
   
+protected:
+  virtual Cell* getCell() const;
+  
+//  virtual Player* getPlayer() const;
+  
 private:
-  string factoryType;
   Cell* cell;
-  Player* playerName;
+//  string factoryType;
+//  Player* player;
 };

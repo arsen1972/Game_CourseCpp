@@ -28,7 +28,7 @@ Builder::Builder(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def
 
 // ***************************************************** ~Builder()
 Builder::~Builder()
-{ //cout << "   ~Builder is annihilated" << endl;
+{ cout << "   ~Builder is annihilated" << endl;
 }
 
 // ***************************************************** getUnitType()
@@ -90,11 +90,6 @@ void Builder::move(Cell* c)
   cout << "   Builder go to cell with coordinates x = " << getCell()->getX() << ", y = " << getCell()->getY() << endl;
 }
 
-// **************************************************** heal(UnitCIVIL*)
-void Builder::heal(UnitCIVIL*  ptr_uT)
-{ cout << "   Builder heal other builder" << endl;
-  //return;
-}
 // ***************************************************** printUnitFields()
 void Builder::printUnitFields() const
 {
@@ -110,7 +105,7 @@ void Builder::printUnitFields() const
 }
 
 // ****************************************************save()
-void Builder::save()
+void Builder::save() const
 { 
   json j = {
   {"unitType", getUnitType()},
@@ -124,7 +119,7 @@ void Builder::save()
   };
 
   ofstream fout;
-  fout.open(PATH_OF_SAVE);
+  fout.open(PATH_OF_SAVE, ofstream::app);
   if (!fout.is_open()) {cout << "Error of open file ..." << endl;}
   else  { fout << j << endl;} //  
   fout.close(); 
@@ -159,7 +154,18 @@ UnitCIVIL* Builder::load()
 Factory* Builder::buildBuilderFactory()
 { 
   BuilderFactory* newDep;
-  newDep = new BuilderFactory();
+  newDep = new BuilderFactory(this->getCell(), "builderFactory");
   cout << "   Message from \"Builder\": New BuilderFactory is DONE!!!!" << endl;
   return newDep;
 }
+
+/*
+// **************************************************** heal(UnitCIVIL*)
+void Builder::heal(UnitCIVIL*  ptr_uT) const
+{ cout << "   Builder heal other builder" << endl;
+  //cout << "   test" << ptr_uT->getHealth() << endl;
+  //ptr_uT->setHealth(ptr_uT->getHealth() + 25); 
+  
+  return;
+}
+*/

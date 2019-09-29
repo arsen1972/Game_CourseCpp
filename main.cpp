@@ -29,10 +29,10 @@ int main()
   cout << "\n************************* ------------ *************************" << endl;
   cout << "*************************  START GAME  *************************" << endl;
   cout << "************************* ------------ *************************\n" << endl;
+  
 // ******************************************* New Player
   string playerName = "Gamer";
   Player player_01 (playerName);
-  cout << endl;
 
 // ************************************************ parametrs for initializations Unit
   std::string unitType = "builder";
@@ -42,48 +42,40 @@ int main()
   Status status = CIVIL;
   TypeOfTerrain tOT = LAND;
  
-  cout << " 1.At start given -  BuilderFactory" << endl; 
+  cout << " 1.At start given -  BuilderFactory const" << endl; 
   shared_ptr <Factory> builderFactory (new BuilderFactory());
-  player_01.addToList(builderFactory);
   cout << endl;
     
   cout << " 2.First graduate BuilderFactory - Builder" << endl;
-  shared_ptr <UnitCIVIL> smart_ptr_unit_01(builderFactory->getUnit(status, tOT, unitType, 100, 0, 0, gameMap[0][1]));
+  shared_ptr <UnitCIVIL> smart_ptr_unit_01(builderFactory->getUnit(status, tOT, unitType, 50, 0, 0, gameMap[0][1]));
   player_01.addToList(smart_ptr_unit_01);
   cout << endl;
   
   cout << " 3.Builder born with parameters:" << endl;
   smart_ptr_unit_01->printUnitFields();
-  // cout << endl;
-  
-  cout << " 4.Save object Builder" << endl;
-  smart_ptr_unit_01->save();
-  cout << endl;
 
-  cout << " 5.Birth of a unit & loading saved" << endl;
+  cout << " 4.Birth of a unit & loading saved" << endl;
   shared_ptr <UnitCIVIL> smart_ptr_unit_03(builderFactory->getUnit(status, tOT, unitType, 100, 0, 0, gameMap[0][1]));
-  shared_ptr <UnitCIVIL> smart_ptr_unit_02(smart_ptr_unit_03->load());
-  player_01.addToList(smart_ptr_unit_02);
+  player_01.addToList(smart_ptr_unit_03);
   cout << endl;
-  
-  cout << " 6.builder_02 loaded with parameters:" << endl;
-  smart_ptr_unit_02->printUnitFields();
 
-  cout << " 7.builder_02 move to cell [1][1]:" << endl;
-  smart_ptr_unit_02->move(gameMap[1][1]);
+  cout << " 5.builder_03 move to cell [1][1]:" << endl;
+  smart_ptr_unit_03->move(gameMap[1][1]);
   cout << endl;
   
-  cout << " 8.builder_02 creates BuilderFactory:" << endl;
-  shared_ptr <Factory> builderFactory_02(smart_ptr_unit_02->buildBuilderFactory());
+  cout << " 6.builder_03 build BuilderFactory:" << endl;
+  shared_ptr <Factory> builderFactory_02(smart_ptr_unit_03->buildBuilderFactory());
   player_01.addToList(builderFactory_02);
-  builderFactory_02->save();
   cout<< endl;
   
-  cout << " 9.builder_02 heal builder_01:" << endl;
-  smart_ptr_unit_02->heal(smart_ptr_unit_03.get());
-  cout<< endl;
+  cout << " 7.builder_02 heal builder_01:" << endl;
+  smart_ptr_unit_03->heal(smart_ptr_unit_01.get());
+  smart_ptr_unit_01->printUnitFields();
+
+  cout << " 8.Begin save all object" << endl;
+  player_01.saveGame();
   
-  cout << "10.Auto clear memory (all SMART)" << endl;
-     
+  cout << " 9.Auto clear memory (all SMART)" << endl;
+  cout<< endl;     
   return 0;
 }

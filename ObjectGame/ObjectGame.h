@@ -4,5 +4,7 @@
 
 class ObjectGame
 {
-
+public:
+  virtual void save() const;
+  
 };

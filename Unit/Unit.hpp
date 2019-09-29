@@ -197,8 +197,6 @@ string Unit<stat, TOT>::load()
 }
 
 
-
-
 // ***********************************************************************************************
 // *******************************************  template specialization for CIVIL units  *********
 // ***********************************************************************************************
@@ -214,8 +212,8 @@ public:
                              // ***********************  methods()
   virtual void printUnitFields() const;
   virtual void move(Cell*);
-  virtual void heal(Unit<CIVIL, TOT>*);
-  virtual void save();
+  virtual void heal(Unit<CIVIL, TOT>*) const;
+  virtual void save() const;
   virtual Unit<CIVIL, TOT>* load();
   virtual Factory* buildBuilderFactory();
 
@@ -252,7 +250,7 @@ Unit<CIVIL, TOT>::Unit (Status st, TypeOfTerrain tOT, string uT, int h, int d, b
 
 template <typename TOT> 
 Unit<CIVIL, TOT>::~Unit()
-{ //cout << "   ~Unit is annihilated" << endl;
+{ cout << "   ~Unit is annihilated" << endl;
 }
 // ****************************************************   getUnitType()
 template <typename TOT> 
@@ -292,8 +290,7 @@ Cell* Unit<CIVIL, TOT>::getCell() const
 // **************************************************** setCell()
 template <typename TOT>
 void Unit<CIVIL, TOT>::setCell(Cell* c)
-{ 
-  cell = c;
+{ cell = c;
   return ;
 }
 
@@ -306,8 +303,7 @@ Status Unit<CIVIL, TOT>::getStatus() const
 // **************************************************** getTOT()
 template <typename TOT>
 TypeOfTerrain Unit<CIVIL, TOT>::getTOT() const
-{
-  return this->typeOfTerrain;
+{ return this->typeOfTerrain;
 }
   
 // **************************************************** printUnitFields()
@@ -329,28 +325,27 @@ void Unit<CIVIL, TOT>::printUnitFields() const
 // **************************************************** move(Cell*)
 template <typename TOT> 
 void Unit<CIVIL, TOT>::move(Cell* c)
-{ 
-  cell = c;
+{ cell = c;
   cout << "Unit go to cell with coordinates x = " << getCell()->getY() << ", y = " << getCell()->getX() << endl;
 }
 
 // **************************************************** heal(Unit<CIVIL, TOT>*)
 template <typename TOT> 
-void Unit<CIVIL, TOT>::heal(Unit<CIVIL, TOT>* s_Ptr)
-{ cout << "Unit is heal" << endl;
+void Unit<CIVIL, TOT>::heal(Unit<CIVIL, TOT>* s_Ptr) const
+{ s_Ptr->setHealth(s_Ptr->getHealth() + 25);
+  cout << "          Unit is heal" << endl;
 }
 
 // **************************************************** save()
 template <typename TOT>
-void Unit<CIVIL, TOT>::save()
-{
+void Unit<CIVIL, TOT>::save() const
+{ cout << "Printing from UnitCIVIL save()" << endl;
 }
 
 // **************************************************** load()
 template <typename TOT>
 Unit<CIVIL, TOT>* Unit<CIVIL, TOT>::load()
-{ 
-  Unit<CIVIL, TOT>* ptr_Unitt;
+{ Unit<CIVIL, TOT>* ptr_Unitt;
   return ptr_Unitt; 
 }
 

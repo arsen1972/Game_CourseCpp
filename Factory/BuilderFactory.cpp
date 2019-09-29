@@ -1,21 +1,37 @@
+#include <string>
+#include <iostream>
+
 #include "BuilderFactory.h"
 #include "../Unit/Unit.hpp"
 #include "../Unit/Civil/Builder.h"
 #include "../Cell/Cell.h"
 
-#include <string>
-#include <iostream>
+
+#define PATH_OF_SAVE "Save/save.json"
+#include "../Json/json.hpp"
+using json = nlohmann::json;
+
 
 //#include "../Unit/Enums.h"
 
 // *****************************************************************   BuilderFactory()
 BuilderFactory::BuilderFactory()
-{ //std::cout << "   BuilderFactory is done! Default constructor" << std::endl;
+{ 
+//  unitType = "BuilderFactory";
+//  cell = gameMap[1][1];
+
+//std::cout << "   BuilderFactory is done! Default constructor" << std::endl;
+}
+
+// *****************************************************************   BuilderFactory(Cell*, string&)
+BuilderFactory::BuilderFactory(Cell* c, std::string uT) : Factory(c), unitType(uT)
+{ 
+  
 }
 
 // *****************************************************************   ~BuilderFactory()
 BuilderFactory::~BuilderFactory()
-{ //std::cout << "   ~BuilderFactory is destroy!" << std::endl;
+{ std::cout << "   ~BuilderFactory is destroy!" << std::endl;
 }
 
 // *****************************************************************   getUnit()
@@ -27,7 +43,34 @@ UnitCIVIL* BuilderFactory::getUnit(Status st, TypeOfTerrain tOT, std::string & u
 }
 
 // *****************************************************************   save()
-void BuilderFactory::save()
-{
-  std::cout << "   BuilderFactory is save" << std::endl;
+void BuilderFactory::save() const
+{ 
+//  cout << " Printing from BuilderFactory save()" << endl;
+  json j = {
+  {"unitType", getUnitType()},
+  {"x", getCell()->getX()},
+  {"y", getCell()->getY()}
+  };
+
+  ofstream fout;
+  fout.open(PATH_OF_SAVE, ofstream::app);
+  if (!fout.is_open()) {cout << "Error of open file ..." << endl;}
+  else  { fout << j << endl;} //  
+  fout.close(); 
+  cout << "   From builderFactory: object save successfully" << endl;
+  cout << "   " << j << endl; // << setw(2) 
+  
+  return;
+}
+
+// ************************************************************** getUnitType()
+std::string BuilderFactory::getUnitType() const
+{ return this->unitType;
+}
+
+// **************************************************  setUnitType(string&)
+void BuilderFactory::setUnitType(string& uT)
+{ 
+  unitType = uT;
+  return;
 }
