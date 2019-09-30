@@ -19,6 +19,11 @@ Factory::Factory()
 Factory::Factory(Cell* c) : cell(c)
 { //cout << "   Factory is done" << endl;
 }
+
+// *****************************************************************   Factory(Cell*, string, Player*)
+Factory::Factory(Cell* c, string uT, Player* pl) : cell(c), unitType(uT), player(pl)
+{ //cout << "   Factory is done" << endl;
+} 
  
 // *****************************************************************   ~Factory()
 Factory::~Factory()
@@ -33,6 +38,16 @@ UnitCIVIL* Factory::getUnit(Status st, TypeOfTerrain tOT, string& unitType, int 
 // **************************************************  getCell()
 Cell* Factory::getCell() const
 { return this->cell;
+}
+
+// **************************************************  getFactoryName()
+string Factory::getFactoryName() const
+{ return this->unitType;
+}
+
+// **************************************************  getPlayer()
+Player* Factory::getPlayer() const
+{ return this->player;
 }
 
 // ***************************************************************** save()
