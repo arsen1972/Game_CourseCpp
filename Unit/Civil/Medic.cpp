@@ -2,11 +2,11 @@
 #include <string>
 #include <memory>
 
-#include "Builder.h"
+#include "Medic.h"
 #include "../Enums.h"
-#include "../../Player/Player.h"
 #include "../../Cell/Cell.h"
-#include "../../Cell/GameMap.h"
+#include "../../Player/Player.h"
+//#include "../../Cell/GameMap.h"
 #include "../Unit.hpp"
 
 #include "../../Save/pathOfSave.h"
@@ -20,85 +20,85 @@ using std::endl;
 using std::ofstream;
 using std::ifstream;
 
-class BuilderFactory;
+//class BuilderFactory;
 
-// ***************************************************** Builder(Status, TypeOfTerrainstring, int, int, bool, Cell*)
-Builder::Builder(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c, Player* pl) :
+// ***************************************************** Medic(Status, TypeOfTerrainstring, int, int, bool, Cell*)
+Medic::Medic(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c, Player* pl) :
  UnitCIVIL(st, tOT, uT, h, d, def, c, pl)
 { //cout << "   Builder is born" << endl;
 }
 
 // ***************************************************** ~Builder()
-Builder::~Builder()
-{ cout << "   ~Builder is annihilated" << endl;
+Medic::~Medic()
+{ cout << "   ~Medic is annihilated" << endl;
 }
 
 // ***************************************************** getUnitType()
-string Builder::getUnitType() const
+string Medic::getUnitType() const
 { return this->UnitCIVIL::getUnitType();
 }
 
 // ***************************************************** getHealth()
-int Builder::getHealth() const
+int Medic::getHealth() const
 { return this->UnitCIVIL::getHealth();
 }
 
 // ****************************************************   setHealth()
-void Builder::setHealth(int h)
+void Medic::setHealth(int h)
 { this->UnitCIVIL::setHealth(h);
 }
 
 // ***************************************************** getDamage()
-int Builder::getDamage() const
+int Medic::getDamage() const
 { return this->UnitCIVIL::getDamage();
 }
 
 // ***************************************************** getDefence()
-bool Builder::getDefence() const
+bool Medic::getDefence() const
 { return this->UnitCIVIL::getDefence();
 }
 
 // **************************************************** getCell()
-Cell* Builder::getCell() const
+Cell* Medic::getCell() const
 { return this->UnitCIVIL::getCell();
 }
 
 // **************************************************** setCell(Cell*)
-void Builder::setCell(Cell* c)
+void Medic::setCell(Cell* c)
 { 
   this->UnitCIVIL::setCell(c);
   return;
 }
 
 // **************************************************** getPlayer()
-Player* Builder::getPlayer() const
+Player* Medic::getPlayer() const
 { return this->UnitCIVIL::getPlayer();
 }
 
 // **************************************************** getStatus()
-Status Builder::getStatus() const
+Status Medic::getStatus() const
 { return this->UnitCIVIL::getStatus();
 }
 
 // **************************************************** getTOT()
-TypeOfTerrain Builder::getTOT() const
+TypeOfTerrain Medic::getTOT() const
 { return this->UnitCIVIL::getTOT();
 }
 
 // **************************************************** getStatusString()  only for print
-string Builder::getStatusString() const
+string Medic::getStatusString() const
 { return "CIVIL";
 }
 
 // **************************************************** move(Cell*)
-void Builder::move(Cell* c)
+void Medic::move(Cell* c)
 { 
   this->setCell(c);
   cout << "   Builder go to cell with coordinates x = " << getCell()->getX() << ", y = " << getCell()->getY() << endl;
 }
 
 // ***************************************************** printUnitFields()
-void Builder::printUnitFields() const
+void Medic::printUnitFields() const
 {
   cout << "   unitType is \t" << this->getUnitType() << endl;
   cout << "   Health = \t" << this->getHealth() << endl;
@@ -113,7 +113,7 @@ void Builder::printUnitFields() const
 }
 
 // ****************************************************save()
-void Builder::save() const
+void Medic::save() const
 { 
   json j = {
   {"unitType", getUnitType()},
@@ -132,21 +132,21 @@ void Builder::save() const
   if (!fout.is_open()) {cout << "Error of open file ..." << endl;}
   else  { fout << j << endl;} //  
   fout.close(); 
-  cout << "   From Builder: object save successfully" << endl;
+  cout << "   From Medic: object save successfully" << endl;
   cout << "   " << j << endl; // << setw(2)
   return;
 }
-
 /*
 // **************************************************** UnitCIVIL* load()
-UnitCIVIL* Builder::load()
+UnitCIVIL* Medic::load()
 {
+  #include "../../Cell/GameMap.h"
   ifstream fin(PATH_OF_SAVE);
   json j;
   fin >> j;
   fin.close();
 
-  UnitCIVIL* ptr_UnitCIVIL = new Builder(
+  UnitCIVIL* ptr_UnitCIVIL = new Medic(
   j.at("status"), 
   j.at("typeOfTerrain"), 
   j.at("unitType"), 
@@ -159,21 +159,3 @@ UnitCIVIL* Builder::load()
   return ptr_UnitCIVIL;
 }
 */
-// метод строительства фабрики BuilderFactory* buildBuilderFactory()
-// **************************************************** buildBuilderFactory()
-Factory* Builder::buildBuilderFactory()
-{ 
-  BuilderFactory* newDep;
-  newDep = new BuilderFactory(this->getCell(), "builderFactory", this->getPlayer());
-  cout << "   Message from \"Builder\": New BuilderFactory is DONE!!!!" << endl;
-  return newDep;
-}
-
-// **************************************************** buildMedicFactory()
-Factory* Builder::buildMedicFactory()
-{ 
-  MedicFactory* newDep;
-  newDep = new MedicFactory(this->getCell(), "medicFactory", this->getPlayer());
-  cout << "   Message from \"Builder\": New MedicFactory is DONE!!!!" << endl;
-  return newDep;
-}

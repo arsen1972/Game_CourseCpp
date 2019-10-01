@@ -10,7 +10,7 @@
 #include "../Unit/Civil/Builder.h"
 #include "../ObjectGame/ObjectGame.h"
 
-#define PATH_OF_SAVE "Save/save.json"
+#include "../Save/pathOfSave.h"
 #include "../Json/json.hpp"
 using json = nlohmann::json;
 
@@ -29,8 +29,6 @@ Player::Player(string& n) : name(n)
 Player::~Player()
 { cout << "   ~Player anigilized...  " << endl;
 //  std::for_each(listOfFactory.begin(), listOfFactory.end(), [](shared_ptr <Factory> ptr_factory){ delete ptr_factory;} );
-
-//  std::for_each(listOfObjectGame.begin(), listOfObjectGame.end(), [](UnitCIVIL* ptr_UnitCIVIL){ delete ptr_UnitCIVIL;} );
 }
 
 // *************************************** addToList(shared_ptr <Factory> ptr_factory)
@@ -49,12 +47,23 @@ string Player::getName() const
 void Player::saveGame() const
 {
   ofstream fout;
-  fout.open(PATH_OF_SAVE, std::ios::out); //, std::ios::out); // ios::out 
-  fout.close(); 
+  fout.open(PATH_OF_SAVE, std::ios::out); 
+  fout.close();
+  
   list<shared_ptr <ObjectGame>>::const_iterator iter = listOfObjectGame.begin();
   for (iter; iter != listOfObjectGame.end(); ++iter)
   { 
-    (*iter)->save(); // .get()
+    (*iter)->save();
     cout << endl;
   }
 }
+
+// ***************************************************** loadGame()
+void Player::loadGame()
+{
+  // clear listOfObjectGame;
+  cout << "   load from file" << endl;
+
+}
+
+

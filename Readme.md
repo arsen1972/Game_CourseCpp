@@ -8,3 +8,8 @@
 - строительство фабрики в клетке, где находится builder (который может сделать move(x,y) в другую клетку);
 - class Player - SMART_ptr;
 - add field "Player* player" (with the necessary methods) to class Factory;
+
+
+	1/10/2019
+- Лечение "medic"-ом. Билдер построил МедикФактори, которая создала медика, который добавил билдеру здоровья.
+- add field "Player* player" (with the necessary methods) to UnitCIVIL;

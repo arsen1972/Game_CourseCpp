@@ -9,12 +9,14 @@
 #include <memory>
 
 #include "../Json/json.hpp"
-#define PATH_OF_SAVE "Save/save.json"
+#include "../Save/pathOfSave.h"
 
 #include "Enums.h"
 //#include "Typedef.h"
 #include "../Cell/Cell.h"
+//#include "../Cell/GameMap.h"
 #include "../ObjectGame/ObjectGame.h"
+//#include "../Player/Player.h"
 //#include "../Factory/Factory.h"
 //#include "../Factory/BuilderFactory.h"
 
@@ -26,12 +28,13 @@ using std::endl;
 using std::ofstream;
 using std::ifstream;
 using std::vector;
-using json = nlohmann::json;
-//using namespace std;
-//class Factory;
+using json = nlohmann::json; // using nlohmann::json;
+
+class Factory;
+class Player;
 
 template <Status stat, typename TOT> // template <Status stat, TypeOfTerrain TypeOT>  
-class Unit
+class Unit : public ObjectGame
 {
 // *************************************   Constructor/destructor
  public:
@@ -191,43 +194,47 @@ void Unit<stat, TOT>::save()
 // **************************************************** load()
 template <Status stat, typename TOT>
 string Unit<stat, TOT>::load()
-{ 
-  string inString;
-  return inString;
-}
-
+{string inString;
+  return inString;}
 
 // ***********************************************************************************************
 // *******************************************  template specialization for CIVIL units  *********
 // ***********************************************************************************************
-class Factory; //  class BuilderFactory;
+
 template <typename TOT>
 class Unit<CIVIL, TOT> : public ObjectGame
 {
 // *************************************   Constructor/destructor
 public:
   Unit();
-  Unit(Status, TypeOfTerrain, string, int, int, bool, Cell*); 
+  Unit(Status, TypeOfTerrain, string, int, int, bool, Cell*, Player*); 
   virtual ~Unit();
                              // ***********************  methods()
   virtual void printUnitFields() const;
   virtual void move(Cell*);
   virtual void heal(Unit<CIVIL, TOT>*) const;
   virtual void save() const;
-  virtual Unit<CIVIL, TOT>* load();
+//  virtual Unit<CIVIL, TOT>* load();
   virtual Factory* buildBuilderFactory();
+  virtual Factory* buildMedicFactory();
 
 protected:          // ***********************  methods()
     
   virtual Status getStatus() const;
   virtual string getUnitType() const;
+  
   virtual int getHealth() const;
   virtual void setHealth(int);
+  
   virtual int getDamage() const;
   virtual bool getDefence() const;
   virtual TypeOfTerrain getTOT() const;
+  
   virtual Cell* getCell() const;
   virtual void setCell(Cell*);
+  
+  virtual Player* getPlayer() const;
+//  virtual void setPlayer(Player*);  
  
 private:                      // ***********************  fields  
   Status status;
@@ -237,6 +244,7 @@ private:                      // ***********************  fields
   bool defence;
   TypeOfTerrain typeOfTerrain;
   Cell* cell;
+  Player* player;
 };
 
 template <typename TOT>
@@ -244,7 +252,8 @@ Unit<CIVIL, TOT>::Unit()
 {}
 // ****************************************************   Constructor/destructor
 template <typename TOT> 
-Unit<CIVIL, TOT>::Unit (Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c) : status(st), typeOfTerrain(tOT), unitType(uT), health(h), damage(d), defence(def), cell(c)
+Unit<CIVIL, TOT>::Unit (Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c, Player* pl) :
+ status(st), typeOfTerrain(tOT), unitType(uT), health(h), damage(d), defence(def), cell(c), player(pl)
 { //cout << "   Unit is born" << endl;
 }
 
@@ -281,17 +290,23 @@ bool Unit<CIVIL, TOT>::getDefence() const
 { return this->defence;
 }
 
-// **************************************************** getCell(Cell*)
+// **************************************************** getCell()
 template <typename TOT>
 Cell* Unit<CIVIL, TOT>::getCell() const
 { return this->cell;
 }
 
-// **************************************************** setCell()
+// **************************************************** setCell(Cell*)
 template <typename TOT>
 void Unit<CIVIL, TOT>::setCell(Cell* c)
 { cell = c;
   return ;
+}
+
+// **************************************************** getPlayer()
+template <typename TOT>
+Player* Unit<CIVIL, TOT>::getPlayer() const
+{ return this->player;
 }
 
 // **************************************************** getStatus()
@@ -310,13 +325,14 @@ TypeOfTerrain Unit<CIVIL, TOT>::getTOT() const
 template <typename TOT>
 void Unit<CIVIL, TOT>::printUnitFields() const
 {
-  cout << "Printing here!!! From Unit" << endl;
+  cout << "Printing here!!! From UnitCIVIL" << endl;
   cout << endl;
   cout << "unitType is \t" << this->unitType << endl;
   cout << "Health = \t" << this->health << endl;
-  cout << "Damage = \t" << this->damage << endl;
-  cout << "Defence = \t" << this->defence << endl;
-  cout << "Bonus factor = \t" << this->getCell()->getLands() << endl;
+//  cout << "Damage = \t" << this->damage << endl;
+//  cout << "Defence = \t" << this->defence << endl;
+//  cout << "Player = " << this->getPlayer()->getName() << endl;
+//  cout << "Bonus factor = \t" << this->getCell()->getLands() << endl;
   cout << "Status unit = \t" << this->getStatus() << endl;
   cout << "Object coordinates: x = " << this->getCell()->getX() << ", y = " << this->getCell()->getY() << endl; 
   cout << endl;
@@ -343,24 +359,36 @@ void Unit<CIVIL, TOT>::save() const
 }
 
 // **************************************************** load()
-template <typename TOT>
-Unit<CIVIL, TOT>* Unit<CIVIL, TOT>::load()
-{ Unit<CIVIL, TOT>* ptr_Unitt;
-  return ptr_Unitt; 
-}
+//template <typename TOT>
+//Unit<CIVIL, TOT>* Unit<CIVIL, TOT>::load()
+//{ Unit<CIVIL, TOT>* ptr_Unitt;
+//  return ptr_Unitt; 
+//}
 
 // ****************************************************   buildBuilderFactory()
 template <typename TOT> 
 Factory* Unit<CIVIL, TOT>::buildBuilderFactory()
 { 
 }
-/*
-// ****************************************************   buildBuilderFactory(int, int)
+
+// ****************************************************   buildBuilderFactory(Cell*, std::string, Player*)
+//template <typename TOT> 
+//Factory* Unit<CIVIL, TOT>::buildBuilderFactory(Cell* c, std::string uT, Player* pl)
+//{ 
+//}
+
+// ****************************************************   buildMedicFactory()
 template <typename TOT> 
-BuilderFactory* Unit<CIVIL, TOT>::buildBuilderFactory(int x, int y)
+Factory* Unit<CIVIL, TOT>::buildMedicFactory()
 { 
 }
-*/
+
+// ****************************************************   buildMedicFactory(Cell*, std::string, Player*)
+//template <typename TOT> 
+//Factory* Unit<CIVIL, TOT>::buildMedicFactory(Cell* c, std::string uT, Player* pl)
+//{ 
+//}
+
 // ***********************************************************************************************
 // *******************************************  template specialization for MILITARY units  *********
 // ***********************************************************************************************

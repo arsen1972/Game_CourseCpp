@@ -2,26 +2,26 @@ cl:
 	g++ -c main.cpp 
 	g++ -c ./ObjectGame/ObjectGame.cpp
 	g++ -c ./Player/Player.cpp
-	g++ -c ./Unit/Unit.cpp ./Unit/Civil/Universal.cpp ./Unit/Civil/Builder.cpp
-	g++ -c ./Factory/Factory.cpp ./Factory/UniversalFactory.cpp ./Factory/BuilderFactory.cpp
+	g++ -c ./Unit/Unit.cpp ./Unit/Civil/Builder.cpp ./Unit/Civil/Medic.cpp
+	g++ -c ./Factory/Factory.cpp ./Factory/BuilderFactory.cpp ./Factory/MedicFactory.cpp
 	g++ -c ./Cell/Cell.cpp
 		
-	g++ main.o ObjectGame.o Player.o Unit.o Universal.o Builder.o Factory.o UniversalFactory.o BuilderFactory.o Cell.o -o all	
+	g++ main.o ObjectGame.o Player.o Unit.o Builder.o Medic.o Factory.o  BuilderFactory.o MedicFactory.o Cell.o -o all	
 	clear
 	./all
 del:
-	rm main.o ObjectGame.o Player.o Unit.o Universal.o Builder.o Factory.o UniversalFactory.o BuilderFactory.o Cell.o all
+	rm main.o ObjectGame.o Player.o Unit.o Builder.o Medic.o Factory.o  BuilderFactory.o MedicFactory.o Cell.o all
 	
 re-cl:
-	rm main.o ObjectGame.o Player.o Unit.o Universal.o Builder.o Factory.o UniversalFactory.o BuilderFactory.o Cell.o all
+	rm main.o ObjectGame.o Player.o Unit.o Builder.o Medic.o Factory.o  BuilderFactory.o MedicFactory.o Cell.o all
 	
 	g++ -c main.cpp
 	g++ -c ./ObjectGame/ObjectGame.cpp
 	g++ -c ./Player/Player.cpp
-	g++ -c ./Unit/Unit.cpp ./Unit/Civil/Universal.cpp ./Unit/Civil/Builder.cpp
-	g++ -c ./Factory/Factory.cpp ./Factory/UniversalFactory.cpp ./Factory/BuilderFactory.cpp
+	g++ -c ./Unit/Unit.cpp ./Unit/Civil/Builder.cpp ./Unit/Civil/Medic.cpp
+	g++ -c ./Factory/Factory.cpp ./Factory/BuilderFactory.cpp ./Factory/MedicFactory.cpp
 	g++ -c ./Cell/Cell.cpp
 		
-	g++ main.o ObjectGame.o Player.o Unit.o Universal.o Builder.o Factory.o UniversalFactory.o BuilderFactory.o Cell.o -o all	
+	g++ main.o ObjectGame.o Player.o Unit.o Builder.o Medic.o Factory.o BuilderFactory.o MedicFactory.o Cell.o -o all	
 	clear
 	./all

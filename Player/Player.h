@@ -25,12 +25,12 @@ class Player
   string getName() const;
   void addToList(shared_ptr <ObjectGame>);
   void saveGame() const;
-//  virtual void save() const;
-  
+  void loadGame();
+
   private:
   string name;
   list<shared_ptr <ObjectGame>> listOfObjectGame;
   
   protected:
-//  void load();
+//  ObjectGame* load();
 };
