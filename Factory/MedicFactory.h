@@ -8,19 +8,22 @@
 #include "../Unit/Civil/Medic.h"
 #include "../Unit/Typedef.h"
 
+using std::string;
+
 class MedicFactory : public Factory
 {
 public:
   MedicFactory();
-  MedicFactory(Cell*, std::string, Player*);
+  MedicFactory(Cell*, string, Player*);
   ~MedicFactory();
-  UnitCIVIL* getUnit(Status, TypeOfTerrain, std::string &, int, int, bool, Cell*, Player*) override;
-  std::string getUnitType() const;
+  UnitCIVIL* getUnit(Status, TypeOfTerrain, string &, int, int, bool, Cell*, Player*) override;
+  string getUnitType() const;
   void setUnitType(string&);
-//  Player* getPlayer() override;
   void save() const override;
+  string toString() const override;
+  void printUnitFields() const override;
   
 private:
-  std::string unitType;
+  string unitType;
   
 };

@@ -11,10 +11,13 @@
 #include "../Factory/Factory.h"
 #include "../ObjectGame/ObjectGame.h"
 
+#define PATH_OF_SAVE "Save/gamer.sav"
+
 using std::cout;
 using std::endl;
+using std::string;
 using std::list;
-using std::shared_ptr;
+
 
 class Player
 {
@@ -23,14 +26,16 @@ class Player
   Player(string &);
   virtual ~Player();
   string getName() const;
-  void addToList(shared_ptr <ObjectGame>);
+  void addToList(ObjectGame*);
   void saveGame() const;
   void loadGame();
+  void printListOfObjectGame();
 
+  
   private:
   string name;
-  list<shared_ptr <ObjectGame>> listOfObjectGame;
+  list<ObjectGame*> listOfObjectGame;
   
   protected:
-//  ObjectGame* load();
+
 };

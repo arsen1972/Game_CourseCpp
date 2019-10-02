@@ -29,10 +29,7 @@ public:
   void printUnitFields() const override;
   void move(Cell*) override;
   void save() const override;
-  
-//  Factory* buildBuilderFactory() override;
-//  Factory* buildMedicFactory() override;
-//  void heal(UnitCIVIL*) const override;
+  std::string toString() const override;
   
 // *************************************************  add method() 
 //  UnitCIVIL* load() override;

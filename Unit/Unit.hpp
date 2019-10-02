@@ -9,7 +9,7 @@
 #include <memory>
 
 #include "../Json/json.hpp"
-#include "../Save/pathOfSave.h"
+//#include "../Save/pathOfSave.h"
 
 #include "Enums.h"
 //#include "Typedef.h"
@@ -181,14 +181,14 @@ void Unit<stat, TOT>::attack(Unit* ptr_victim)
 template <Status stat, typename TOT>
 void Unit<stat, TOT>::save()
 {
-  string str_temp;
-  str_temp = unitType + ";" + to_string(health) + ";" + to_string(damage) + ";" + to_string(defence) + ";" + getCell()->getLands() + ";" + to_string(getCell()->getX()) + ";" + to_string(getCell()->getY()) + ";" + to_string(getStatus()) + ";" + to_string(getTOT());
-  ofstream fout;
-  fout.open(PATH_OF_SAVE);
-  if (!fout.is_open()) {cout << "Ошибка открытия файла..." << endl;}
-  else  { fout << str_temp << endl;}
-  fout.close(); 
-  cout << "Объект успешно сохранен" << endl;
+//  string str_temp;
+//  str_temp = unitType + ";" + to_string(health) + ";" + to_string(damage) + ";" + to_string(defence) + ";" + getCell()->getLands() + ";" + to_string(getCell()->getX()) + ";" + to_string(getCell()->getY()) + ";" + to_string(getStatus()) + ";" + to_string(getTOT());
+//  ofstream fout;
+//  fout.open(PATH_OF_SAVE);
+//  if (!fout.is_open()) {cout << "Ошибка открытия файла..." << endl;}
+//  else  { fout << str_temp << endl;}
+//  fout.close(); 
+//  cout << "Объект успешно сохранен" << endl;
 }
 
 // **************************************************** load()
@@ -214,6 +214,7 @@ public:
   virtual void move(Cell*);
   virtual void heal(Unit<CIVIL, TOT>*) const;
   virtual void save() const;
+  virtual string toString() const;
 //  virtual Unit<CIVIL, TOT>* load();
   virtual Factory* buildBuilderFactory();
   virtual Factory* buildMedicFactory();
@@ -350,6 +351,14 @@ template <typename TOT>
 void Unit<CIVIL, TOT>::heal(Unit<CIVIL, TOT>* s_Ptr) const
 { s_Ptr->setHealth(s_Ptr->getHealth() + 25);
   cout << "          Unit is heal" << endl;
+}
+
+// **************************************************** toString()
+template <typename TOT>
+string Unit<CIVIL, TOT>::toString() const
+{
+  string str = "from UnitCIVIL";
+  return str;
 }
 
 // **************************************************** save()

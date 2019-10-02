@@ -1,6 +1,5 @@
 #include <string>
 #include <iostream>
-#include <memory>
 
 #include "Factory.h"
 #include "BuilderFactory.h"
@@ -8,14 +7,11 @@
 #include "../Unit/Civil/Builder.h"
 #include "../Cell/Cell.h"
 #include "../Player/Player.h"
+#include "../ObjectGame/ObjectGame.h"
 
-#include "../Save/pathOfSave.h"
 #include "../Json/json.hpp"
 
 using json = nlohmann::json;
-
-
-//#include "../Unit/Enums.h"
 
 // *****************************************************************   BuilderFactory()
 BuilderFactory::BuilderFactory()
@@ -48,16 +44,31 @@ UnitCIVIL* BuilderFactory::getUnit(Status st, TypeOfTerrain tOT, std::string & u
   Builder* ptr_unit = nullptr;
   if(unitType == "builder") ptr_unit = new Builder(st, tOT, unitType, h, d, def, c, pl);
   
-//  shared_ptr <UnitCIVIL> smart_ptr_unit (ptr_unit);
-//  Player::listOfObjectGame.push_back(smart_ptr_unit); // здесь по ссылке на плейера вызвать добавление в лист
+  cout << "   Builder created!" << endl;
+  pl->addToList(ptr_unit);
   
   return ptr_unit;
+}
+
+// **************************************************** toString()
+string BuilderFactory::toString() const
+{ 
+  json j = {
+  {"unitType", getUnitType()},
+  {"Player", getPlayer()->getName()},
+  {"x", getCell()->getX()},
+  {"y", getCell()->getY()}
+  };
+  
+  string str = j.dump() + "\n";
+  
+  return str;
 }
 
 // *****************************************************************   save()
 void BuilderFactory::save() const
 { 
-//  cout << " Printing from BuilderFactory save()" << endl;
+/*  cout << " Printing from BuilderFactory save()" << endl;
   json j = {
   {"unitType", getUnitType()},
   {"Player", getPlayer()->getName()},
@@ -72,7 +83,7 @@ void BuilderFactory::save() const
   fout.close(); 
   cout << "   From builderFactory: object save successfully" << endl;
   cout << "   " << j << endl; // << setw(2) 
-  
+ */ 
   return;
 }
 
@@ -86,4 +97,13 @@ void BuilderFactory::setUnitType(string& uT)
 { 
   unitType = uT;
   return;
+}
+
+// **************************************************** printUnitFields()
+void BuilderFactory::printUnitFields() const
+{ 
+  cout << "   From BuilderFactory:" << endl;
+  cout << "   unitType is \t" << this->unitType << endl;
+  cout << "   Object coordinates: x = " << this->getCell()->getX() << ", y = " << this->getCell()->getY() << endl;
+  cout << endl;
 }

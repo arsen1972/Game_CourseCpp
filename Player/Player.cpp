@@ -10,10 +10,6 @@
 #include "../Unit/Civil/Builder.h"
 #include "../ObjectGame/ObjectGame.h"
 
-#include "../Save/pathOfSave.h"
-#include "../Json/json.hpp"
-using json = nlohmann::json;
-
 using std::cout;
 using std::endl;
 using std::list;
@@ -26,16 +22,23 @@ Player::Player(string& n) : name(n)
 }
 
 // *************************************** ~Player()
-Player::~Player()
-{ cout << "   ~Player anigilized...  " << endl;
-//  std::for_each(listOfFactory.begin(), listOfFactory.end(), [](shared_ptr <Factory> ptr_factory){ delete ptr_factory;} );
+Player::~Player() //std::for_each(listOfObjectGame.begin(), listOfObjectGame.end(), [](ObjectGame* ptr_objectGame){ delete (*ptr_objectGame);});
+{ 
+  std::for_each(listOfObjectGame.begin(), listOfObjectGame.end(), [](ObjectGame* ptr_temp){ delete ptr_temp;});
+
+//  list <ObjectGame*> listOfObjectGame::iterator it;
+//  for (it = listOfObjectGame.begin(); it != listOfObjectGame.end(); it++)
+//  { delete **it;}
+
+  cout << "   ~Player anigilized...  " << endl;
+  
 }
 
 // *************************************** addToList(shared_ptr <Factory> ptr_factory)
-void Player::addToList(shared_ptr <ObjectGame> smart_ptr_ObjectGame)
+void Player::addToList(ObjectGame* ptr_ObjectGame)
 {
-  listOfObjectGame.push_back(smart_ptr_ObjectGame); 
-  cout << "   SMART_PTR add to list of ObjectGame" << endl;
+  listOfObjectGame.push_back(ptr_ObjectGame); 
+  cout << "   ptr_ObjectGame add to list of ObjectGame" << endl;
   return;
 }
 
@@ -50,20 +53,88 @@ void Player::saveGame() const
   fout.open(PATH_OF_SAVE, std::ios::out); 
   fout.close();
   
-  list<shared_ptr <ObjectGame>>::const_iterator iter = listOfObjectGame.begin();
-  for (iter; iter != listOfObjectGame.end(); ++iter)
+  for (list<ObjectGame*>::const_iterator it = listOfObjectGame.begin(); it != listOfObjectGame.end(); ++it)
   { 
-    (*iter)->save();
-    cout << endl;
+    fout.open(PATH_OF_SAVE, ofstream::app);
+    fout << (*it)->toString();
+    fout.close();
+    cout << "     done" << endl;
   }
 }
 
 // ***************************************************** loadGame()
+//#include "../Cell/GameMap.h"
 void Player::loadGame()
 {
-  // clear listOfObjectGame;
-  cout << "   load from file" << endl;
-
+  #include "../Cell/GameMap.h"
+  json j;
+  string tempString;
+  ifstream fin(PATH_OF_SAVE);
+  this->listOfObjectGame.clear();
+  while (getline(fin, tempString))
+  {
+    j = json::parse(tempString);
+    if (j.at("unitType") == "builder")
+    { 
+      cout << "\n   builder is load!" << endl;
+      this->addToList(new Builder(
+      j.at("status"), 
+      j.at("typeOfTerrain"), 
+      j.at("unitType"), 
+      j.at("health"), 
+      j.at("damage"), 
+      j.at("defence"),
+      gameMap[j.at("y")][j.at("x")],
+      this));
+    }
+    
+    else if (j.at("unitType") == "medic")
+    {
+      cout << "\n   medic is load!" << endl;
+      this->addToList(new Builder(
+      j.at("status"), 
+      j.at("typeOfTerrain"), 
+      j.at("unitType"), 
+      j.at("health"), 
+      j.at("damage"), 
+      j.at("defence"),
+      gameMap[j.at("y")][j.at("x")],
+      this));
+    }
+    
+    else if (j.at("unitType") == "medicFactory")
+    {
+      cout << "\n   medicFactory is load!" << endl;
+      this->addToList
+      (new MedicFactory(
+      gameMap[j.at("y")][j.at("x")],
+      j.at("unitType"),
+      this));
+    }
+    
+    else if (j.at("unitType") == "builderFactory")
+    {
+      cout << "\n   buildFactory is load!" << endl;
+      this->addToList
+      (new MedicFactory(
+      gameMap[j.at("y")][j.at("x")],
+      j.at("unitType"),
+      this));
+    }
+  }
+  fin.close();
 }
+// ******************************************************** printListOfObjectGame()
+void Player::printListOfObjectGame()
+{ 
+//  list<ObjectGame*> listOfObjectGame::iterator it;
+  
+//  for(listOfObjectGame.begin(), listOfObjectGame.end(), i++);
+  cout << "   Number elements of listOfObjectGame = " << listOfObjectGame.size() << endl;
+  listOfObjectGame.clear();
+  cout << "   Number elements of listOfObjectGame = " << listOfObjectGame.size() << endl;
+}
+
+
 
 

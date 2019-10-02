@@ -1,15 +1,11 @@
-	30/09/2019
-
-- Работающая версия. Скрин;
-- SMART ptr for Unit & Factory;
-- Пакетное сохранение (поочередный вызов save() );
-- Лечение юнита юнитом (пока для проверки функционирования оба юнита - builder);
-- пообъектная загрузка (простой load() );
-- строительство фабрики в клетке, где находится builder (который может сделать move(x,y) в другую клетку);
-- class Player - SMART_ptr;
-- add field "Player* player" (with the necessary methods) to class Factory;
-
-
 	1/10/2019
 - Лечение "medic"-ом. Билдер построил МедикФактори, которая создала медика, который добавил билдеру здоровья.
-- add field "Player* player" (with the necessary methods) to UnitCIVIL;
+- add field "Player* player" to UnitCIVIL & Factory
+- От объекта UNIT только строка с состоянием при вызове метода toString(). Пишется в файл из Player.
+
+	2/09/2019
+- Player.saveGame() сохраняет файл Gamer.sav предварительно собрав со всех ObjectGame их состояние в строке.
+- Player.loadGame() загружает(создает) объекты по строке из файла.
+- Автоматический учет любого объекта типа ObjectGame сразу при его рождении ().
+- SMART_ptr только у Player.
+- ObjectGame_prt обычные. Пока удаляются вручную. Надо реализовать в деструкторе ~Player.

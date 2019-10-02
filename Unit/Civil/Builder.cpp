@@ -9,7 +9,6 @@
 #include "../../Cell/GameMap.h"
 #include "../Unit.hpp"
 
-#include "../../Save/pathOfSave.h"
 #include "../../Json/json.hpp"
 using json = nlohmann::json;
 
@@ -25,7 +24,7 @@ class BuilderFactory;
 // ***************************************************** Builder(Status, TypeOfTerrainstring, int, int, bool, Cell*)
 Builder::Builder(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c, Player* pl) :
  UnitCIVIL(st, tOT, uT, h, d, def, c, pl)
-{ //cout << "   Builder is born" << endl;
+{ //pl->addToList(this);
 }
 
 // ***************************************************** ~Builder()
@@ -112,8 +111,8 @@ void Builder::printUnitFields() const
   cout << endl;
 }
 
-// ****************************************************save()
-void Builder::save() const
+// **************************************************** toString()
+string Builder::toString() const
 { 
   json j = {
   {"unitType", getUnitType()},
@@ -126,39 +125,19 @@ void Builder::save() const
   {"x", getCell()->getX()},
   {"y", getCell()->getY()}
   };
-
-  ofstream fout;
-  fout.open(PATH_OF_SAVE, ofstream::app);
-  if (!fout.is_open()) {cout << "Error of open file ..." << endl;}
-  else  { fout << j << endl;} //  
-  fout.close(); 
-  cout << "   From Builder: object save successfully" << endl;
-  cout << "   " << j << endl; // << setw(2)
-  return;
-}
-
-/*
-// **************************************************** UnitCIVIL* load()
-UnitCIVIL* Builder::load()
-{
-  ifstream fin(PATH_OF_SAVE);
-  json j;
-  fin >> j;
-  fin.close();
-
-  UnitCIVIL* ptr_UnitCIVIL = new Builder(
-  j.at("status"), 
-  j.at("typeOfTerrain"), 
-  j.at("unitType"), 
-  j.at("health"), 
-  j.at("damage"), 
-  j.at("defence"),
-  gameMap[j.at("y")][j.at("x")]
-  );
   
-  return ptr_UnitCIVIL;
+  string str = j.dump() + "\n";
+  
+  return str;
 }
-*/
+
+// **************************************************** save()
+void Builder::save() const
+{ 
+
+}
+
+
 // метод строительства фабрики BuilderFactory* buildBuilderFactory()
 // **************************************************** buildBuilderFactory()
 Factory* Builder::buildBuilderFactory()
@@ -166,6 +145,8 @@ Factory* Builder::buildBuilderFactory()
   BuilderFactory* newDep;
   newDep = new BuilderFactory(this->getCell(), "builderFactory", this->getPlayer());
   cout << "   Message from \"Builder\": New BuilderFactory is DONE!!!!" << endl;
+  this->getPlayer()->addToList(newDep);
+  
   return newDep;
 }
 
@@ -175,5 +156,6 @@ Factory* Builder::buildMedicFactory()
   MedicFactory* newDep;
   newDep = new MedicFactory(this->getCell(), "medicFactory", this->getPlayer());
   cout << "   Message from \"Builder\": New MedicFactory is DONE!!!!" << endl;
+  this->getPlayer()->addToList(newDep);
   return newDep;
 }

@@ -9,7 +9,6 @@
 //#include "../../Cell/GameMap.h"
 #include "../Unit.hpp"
 
-#include "../../Save/pathOfSave.h"
 #include "../../Json/json.hpp"
 using json = nlohmann::json;
 
@@ -25,7 +24,7 @@ using std::ifstream;
 // ***************************************************** Medic(Status, TypeOfTerrainstring, int, int, bool, Cell*)
 Medic::Medic(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c, Player* pl) :
  UnitCIVIL(st, tOT, uT, h, d, def, c, pl)
-{ //cout << "   Builder is born" << endl;
+{ //pl->addToList(this);
 }
 
 // ***************************************************** ~Builder()
@@ -112,10 +111,30 @@ void Medic::printUnitFields() const
   cout << endl;
 }
 
+// **************************************************** toString()
+string Medic::toString() const
+{ 
+  json j = {
+  {"unitType", getUnitType()},
+  {"health", getHealth()},
+  {"player", getPlayer()->getName()},
+  {"damage", getDamage()},
+  {"defence", getDefence()},
+  {"status", getStatus()},
+  {"typeOfTerrain", getTOT()},
+  {"x", getCell()->getX()},
+  {"y", getCell()->getY()}
+  };
+  
+  string str = j.dump() + "\n";
+  
+  return str;
+}
+
 // ****************************************************save()
 void Medic::save() const
 { 
-  json j = {
+/*  json j = {
   {"unitType", getUnitType()},
   {"health", getHealth()},
   {"player", getPlayer()->getName()},
@@ -134,7 +153,7 @@ void Medic::save() const
   fout.close(); 
   cout << "   From Medic: object save successfully" << endl;
   cout << "   " << j << endl; // << setw(2)
-  return;
+  return;*/
 }
 /*
 // **************************************************** UnitCIVIL* load()

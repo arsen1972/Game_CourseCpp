@@ -25,6 +25,8 @@ public:
   virtual ~Factory() = 0;
   virtual UnitCIVIL* getUnit(Status, TypeOfTerrain, string&, int, int, bool, Cell*, Player*);
   virtual void save();
+  virtual string toString() const;
+  virtual void printUnitFields() const;
 //  virtual Player* getPlayer();
   
 protected:

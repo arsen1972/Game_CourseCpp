@@ -50,7 +50,23 @@ Player* Factory::getPlayer() const
 { return this->player;
 }
 
+// **************************************************** toString()
+string Factory::toString() const
+{
+  string str = "from Factory";
+  return str;
+}
+
 // ***************************************************************** save()
 void Factory::save()
 { std::cout << "   Factory is save" << std::endl;
+}
+
+// **************************************************** printUnitFields()
+void Factory::printUnitFields() const
+{ 
+  cout << "   From Factory virtual" << endl;
+  cout << "   unitType is \t" << "Base Factory" << endl;
+  cout << "   Object coordinates: x = " << this->getCell()->getX() << ", y = " << this->getCell()->getY() << endl;
+  cout << endl;
 }
