@@ -27,8 +27,8 @@ class Player
   virtual ~Player();
   string getName() const;
   void addToList(ObjectGame*);
-  void saveGame() const;
-  void loadGame();
+  void savePlayer() const;
+  void loadPlayer();
   void printListOfObjectGame();
 
   

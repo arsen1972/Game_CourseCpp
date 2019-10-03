@@ -46,25 +46,24 @@ void Player::addToList(ObjectGame* ptr_ObjectGame)
 string Player::getName() const
 { return this->name;}
 
-// ****************************************************  saveGame()
-void Player::saveGame() const
+// ****************************************************  savePlayer()
+void Player::savePlayer() const
 {
   ofstream fout;
-  fout.open(PATH_OF_SAVE, std::ios::out); 
-  fout.close();
+//  fout.open(PATH_OF_SAVE, std::ios::out); 
+//  fout.close();
   
   for (list<ObjectGame*>::const_iterator it = listOfObjectGame.begin(); it != listOfObjectGame.end(); ++it)
   { 
     fout.open(PATH_OF_SAVE, ofstream::app);
     fout << (*it)->toString();
     fout.close();
-    cout << "     done" << endl;
+    cout << "   done" << endl;
   }
 }
 
-// ***************************************************** loadGame()
-//#include "../Cell/GameMap.h"
-void Player::loadGame()
+// ***************************************************** loadPlayer()
+void Player::loadPlayer()
 {
   #include "../Cell/GameMap.h"
   json j;
