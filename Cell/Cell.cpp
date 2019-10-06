@@ -19,7 +19,9 @@ Cell::Cell(int x, int y, string l) : x(y), y(x), lands(l)
 
 // **************************************************** ~Cell()
 Cell::~Cell()
-{}
+{
+  //std::cout << "    delete (Cell* = new Cell) from \"gameMap\"" << std::endl;
+}
 
 // ****************************************************  getX()
 int Cell::getX() const

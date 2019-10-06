@@ -1,9 +1,8 @@
 #pragma once
+
 #include "../Unit/Unit.hpp"
 #include "../Player/Player.h"
 #include "../ObjectGame/ObjectGame.h"
-//#include "../Unit/Civil/Builder.h"
-//#include "../Unit/Enums.h"
 #include "../Unit/Typedef.h"
 #include "../Cell/Cell.h"
 
@@ -27,7 +26,6 @@ public:
   virtual void save();
   virtual string toString() const;
   virtual void printUnitFields() const;
-//  virtual Player* getPlayer();
   
 protected:
   Cell* getCell() const;

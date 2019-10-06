@@ -14,7 +14,7 @@
 #include "Enums.h"
 //#include "Typedef.h"
 #include "../Cell/Cell.h"
-//#include "../Cell/GameMap.h"
+#include "../Cell/GameMap.h"
 #include "../ObjectGame/ObjectGame.h"
 //#include "../Player/Player.h"
 //#include "../Factory/Factory.h"

@@ -18,18 +18,18 @@ using std::ifstream;
 
 // *************************************** Player()
 Player::Player(string& n) : name(n)
-{ //cout << "   " << n << " player born!" << endl;
+{ 
 }
 
 // *************************************** ~Player()
 Player::~Player() //std::for_each(listOfObjectGame.begin(), listOfObjectGame.end(), [](ObjectGame* ptr_objectGame){ delete (*ptr_objectGame);});
 { 
-  std::for_each(listOfObjectGame.begin(), listOfObjectGame.end(), [](ObjectGame* ptr_temp){ delete ptr_temp;});
-
-//  list <ObjectGame*> listOfObjectGame::iterator it;
-//  for (it = listOfObjectGame.begin(); it != listOfObjectGame.end(); it++)
-//  { delete **it;}
-
+//  std::for_each(listOfObjectGame.begin(), listOfObjectGame.end(), [](ObjectGame* ptr_temp){ delete ptr_temp;});
+  list<ObjectGame*>::iterator it = listOfObjectGame.begin();
+  for(it; it != listOfObjectGame.end(); it++)
+  {
+    delete (*it);
+  }
   cout << "   ~Player anigilized...  " << endl;
   
 }
@@ -50,8 +50,6 @@ string Player::getName() const
 void Player::savePlayer() const
 {
   ofstream fout;
-//  fout.open(PATH_OF_SAVE, std::ios::out); 
-//  fout.close();
   
   for (list<ObjectGame*>::const_iterator it = listOfObjectGame.begin(); it != listOfObjectGame.end(); ++it)
   { 
@@ -68,8 +66,8 @@ void Player::loadPlayer()
   #include "../Cell/GameMap.h"
   json j;
   string tempString;
-  ifstream fin(PATH_OF_SAVE);
   this->listOfObjectGame.clear();
+  ifstream fin(PATH_OF_SAVE);
   while (getline(fin, tempString))
   {
     j = json::parse(tempString);
@@ -126,9 +124,6 @@ void Player::loadPlayer()
 // ******************************************************** printListOfObjectGame()
 void Player::printListOfObjectGame()
 { 
-//  list<ObjectGame*> listOfObjectGame::iterator it;
-  
-//  for(listOfObjectGame.begin(), listOfObjectGame.end(), i++);
   cout << "   Number elements of listOfObjectGame = " << listOfObjectGame.size() << endl;
   listOfObjectGame.clear();
   cout << "   Number elements of listOfObjectGame = " << listOfObjectGame.size() << endl;

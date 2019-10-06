@@ -16,10 +16,6 @@ using json = nlohmann::json;
 // *****************************************************************   BuilderFactory()
 BuilderFactory::BuilderFactory()
 { 
-//  unitType = "BuilderFactory";
-//  cell = gameMap[1][1];
-
-//std::cout << "   BuilderFactory is done! Default constructor" << std::endl;
 }
 
 // *****************************************************************   BuilderFactory(Cell*, string&, Player*)
@@ -32,11 +28,6 @@ BuilderFactory::BuilderFactory(Cell* c, std::string uT, Player* pl) : Factory(c,
 BuilderFactory::~BuilderFactory()
 { std::cout << "   ~BuilderFactory is destroy!" << std::endl;
 }
-
-// ****************************************************************** getPlayer()
-//Player* BuilderFactory::getPlayer()
-//{ return this->Factory::getPlayer();
-//}
 
 // *****************************************************************   getUnit()
 UnitCIVIL* BuilderFactory::getUnit(Status st, TypeOfTerrain tOT, std::string & unitType, int h, int d, bool def, Cell* c, Player* pl)
@@ -68,22 +59,6 @@ string BuilderFactory::toString() const
 // *****************************************************************   save()
 void BuilderFactory::save() const
 { 
-/*  cout << " Printing from BuilderFactory save()" << endl;
-  json j = {
-  {"unitType", getUnitType()},
-  {"Player", getPlayer()->getName()},
-  {"x", getCell()->getX()},
-  {"y", getCell()->getY()}
-  };
-
-  ofstream fout;
-  fout.open(PATH_OF_SAVE, ofstream::app);
-  if (!fout.is_open()) {cout << "Error of open file ..." << endl;}
-  else  { fout << j << endl;} //  
-  fout.close(); 
-  cout << "   From builderFactory: object save successfully" << endl;
-  cout << "   " << j << endl; // << setw(2) 
- */ 
   return;
 }
 

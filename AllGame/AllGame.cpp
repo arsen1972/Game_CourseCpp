@@ -11,6 +11,7 @@
 #include "../Factory/BuilderFactory.h"
 #include "../Unit/Civil/Builder.h"
 #include "../ObjectGame/ObjectGame.h"
+#include "../Cell/GameMap.h"
 
 using std::cout;
 using std::endl;
@@ -33,7 +34,8 @@ AllGame::AllGame(int id):id(id)
 
 // **************************************************** ~AllGame()
 AllGame::~AllGame()
-{
+{ 
+  clearGameMap(gameMap);
   cout << "   ~AllGame delete № " << id  << endl;
 }
 
@@ -63,16 +65,29 @@ void AllGame::saveGame()
   }
 }
 
-/*// **************************************************** loadGame()
+// **************************************************** loadGame()
 void AllGame::loadGame()
 {
   int i = 1;
-  list<Player*> addToListOfPlayers::iterator it = addToListOfPlayers.begin()
-  for(it; it != addToListOfPlayers.end(); it++)
-  {
-    cout << " 9.Load all object Player " << i << endl; i++;
-    *it->loadPlayer();
-    cout << endl;
-  }
+  list<shared_ptr <Player>>::iterator it = ListOfPlayers.begin();
+  for(it; it != ListOfPlayers.end(); ++it)
+  { cout << "   Load all object Player " << i << endl; i++;
+    if((*it)->getName() == "Gamer_" + to_string(i))
+    {
+      (*it)->loadPlayer();
+      cout << endl;
+  } }
+  cout << endl;
 }
-*/
+
+// *****************************************************  clearGameMap(vector<vector<Cell*>>)
+void AllGame::clearGameMap(vector<vector<Cell*>> gM)
+{ for(int i = 0; i<gM.size(); i++)
+  { for(int j = 0; j<gM[i].size(); j++)
+    { delete gameMap[i][j];
+} } }
+
+
+
+
+

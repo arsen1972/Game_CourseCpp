@@ -5,6 +5,11 @@ using std::cout;
 using std::endl;
 using std::string;
 
+// ****************************************** ~ObjectGame()
+ObjectGame::~ObjectGame()
+{ cout << "   ~ObjectGame()" << endl;
+}
+
 // ****************************************** save()
 void ObjectGame::save() const
 {

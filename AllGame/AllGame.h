@@ -7,6 +7,7 @@
 #include <list>
 
 #include "../Player/Player.h"
+#include "../Cell/Cell.h"
 
 #define PATH_OF_SAVE "Save/gamer.sav"
 
@@ -25,10 +26,12 @@ public:
   void saveGame();
   void loadGame();
   void addToListOfPlayers(shared_ptr <Player>);
+  void clearGameMap(vector<vector<Cell*>>);
   
 private:
   int id;
+  list <shared_ptr <Player>> ListOfPlayers;
   
 protected:
-  list <shared_ptr <Player>> ListOfPlayers;
+  
 };

@@ -24,7 +24,7 @@ class BuilderFactory;
 // ***************************************************** Builder(Status, TypeOfTerrainstring, int, int, bool, Cell*)
 Builder::Builder(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c, Player* pl) :
  UnitCIVIL(st, tOT, uT, h, d, def, c, pl)
-{ //pl->addToList(this);
+{ 
 }
 
 // ***************************************************** ~Builder()
@@ -136,7 +136,6 @@ void Builder::save() const
 { 
 
 }
-
 
 // метод строительства фабрики BuilderFactory* buildBuilderFactory()
 // **************************************************** buildBuilderFactory()

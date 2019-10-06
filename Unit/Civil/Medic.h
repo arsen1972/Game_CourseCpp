@@ -6,12 +6,7 @@
 #include "../Unit.hpp"
 #include "../Enums.h"
 #include "../Typedef.h"
-//#include "../../Factory/Factory.h"
-//#include "../../Factory/BuilderFactory.h"
-//#include "../../Factory/MedicFactory.h"
 #include "../../Cell/Cell.h"
-
-//class BuilderFactory;
 
 class Medic : public UnitCIVIL // typedef Unit<CIVIL, TypeOfTerrain> UnitCIVIL;
 {
@@ -30,11 +25,7 @@ public:
   void move(Cell*) override;
   void save() const override;
   std::string toString() const override;
-  
-// *************************************************  add method() 
-//  UnitCIVIL* load() override;
 
-  
 protected:
   int getHealth() const override;
   void setHealth(int) override;

@@ -6,7 +6,7 @@
 #include "../Enums.h"
 #include "../../Cell/Cell.h"
 #include "../../Player/Player.h"
-//#include "../../Cell/GameMap.h"
+#include "../../Cell/GameMap.h"
 #include "../Unit.hpp"
 
 #include "../../Json/json.hpp"
@@ -19,12 +19,11 @@ using std::endl;
 using std::ofstream;
 using std::ifstream;
 
-//class BuilderFactory;
 
 // ***************************************************** Medic(Status, TypeOfTerrainstring, int, int, bool, Cell*)
 Medic::Medic(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c, Player* pl) :
  UnitCIVIL(st, tOT, uT, h, d, def, c, pl)
-{ //pl->addToList(this);
+{ 
 }
 
 // ***************************************************** ~Builder()
@@ -134,26 +133,7 @@ string Medic::toString() const
 // ****************************************************save()
 void Medic::save() const
 { 
-/*  json j = {
-  {"unitType", getUnitType()},
-  {"health", getHealth()},
-  {"player", getPlayer()->getName()},
-  {"damage", getDamage()},
-  {"defence", getDefence()},
-  {"status", getStatus()},
-  {"typeOfTerrain", getTOT()},
-  {"x", getCell()->getX()},
-  {"y", getCell()->getY()}
-  };
 
-  ofstream fout;
-  fout.open(PATH_OF_SAVE, ofstream::app);
-  if (!fout.is_open()) {cout << "Error of open file ..." << endl;}
-  else  { fout << j << endl;} //  
-  fout.close(); 
-  cout << "   From Medic: object save successfully" << endl;
-  cout << "   " << j << endl; // << setw(2)
-  return;*/
 }
 /*
 // **************************************************** UnitCIVIL* load()
