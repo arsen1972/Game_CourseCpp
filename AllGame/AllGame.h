@@ -8,6 +8,8 @@
 
 #include "../Player/Player.h"
 #include "../Cell/Cell.h"
+#include "../Factory/Factory.h"
+#include "../Unit/Unit.hpp"
 
 #define PATH_OF_SAVE "Save/gamer.sav"
 
@@ -21,16 +23,21 @@ class AllGame
 {
 public:
   AllGame();
-  AllGame(int);
+  AllGame(string);
   virtual ~AllGame();
+  void runGame();
+  void creatGamer(string);
+  string getTitle() const;
   void saveGame();
   void loadGame();
   void addToListOfPlayers(shared_ptr <Player>);
+  void printListOfPlayers() const;
   void clearGameMap(vector<vector<Cell*>>);
   
 private:
-  int id;
+  string title;
   list <shared_ptr <Player>> ListOfPlayers;
+//  Player* player;
   
 protected:
   

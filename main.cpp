@@ -29,21 +29,36 @@ using std::shared_ptr;
 
 int main()
 {
-  AllGame all(123456789);
+  AllGame all{"all_Game"};
   
   cout << "\n************************* ------------ *************************" << endl;
   cout << "*************************  START GAME  *************************" << endl;
   cout << "************************* ------------ *************************\n" << endl;
   
-// ******************************************* New Players
-  string playerName_1 = "Gamer_1";
-  shared_ptr <Player> smart_ptr_player_01(new Player(playerName_1));
-  all.addToListOfPlayers(smart_ptr_player_01);
+// *********************************************** New Players
+  bool addPlayers = true;
+  while (addPlayers)
+  { 
+    cout << "Введите имя игрока: " ;
+    string playerName;
+    cin >> playerName;
+    all.creatGamer(playerName);
+      
+    cout << "Добавить игрока? (Y/N) - ";
+    string addPlayerName;
+    cin >> addPlayerName;
+    if (addPlayerName == "Y" || addPlayerName == "y")
+    {
+    }
+    else
+    { addPlayers = false;
+    }
+  }
   
-  string playerName_2 = "Gamer_2";
-  shared_ptr <Player> smart_ptr_player_02(new Player(playerName_2));
-  all.addToListOfPlayers(smart_ptr_player_02);
-    
+  cout << endl;
+  all.printListOfPlayers();
+  cout << endl;
+
 // ************************************************ parametrs for initializations Unit
   std::string unitType = "builder";
   std::string unitTypeFactory = "builderFactory";
@@ -52,8 +67,11 @@ int main()
   int damage_0 = 20;
   bool defence = true;
   Status status = CIVIL;
-  TypeOfTerrain tOT = LAND;
- 
+  TypeOfTerrain tOT = LAND;  
+  
+  all.runGame();
+
+/* 
   cout << "\n 1.At start given - BuilderFactory const" << endl; 
   Factory* startedBuilderFactory = new BuilderFactory(gameMap[0][0], unitTypeFactory, smart_ptr_player_01.get());
   smart_ptr_player_01->addToList(startedBuilderFactory);
@@ -63,7 +81,7 @@ int main()
   Factory* startedBuilderFactory_2= new BuilderFactory(gameMap[1][0], unitTypeFactory, smart_ptr_player_02.get());
   smart_ptr_player_02->addToList(startedBuilderFactory_2);  
   cout << endl;
-
+ 
   cout << " 2.First graduate BuilderFactory - Builder" << endl;
   UnitCIVIL* builder_ptr_unit_01 = startedBuilderFactory->getUnit(status, tOT, unitType, 50, 0, 0, gameMap[0][1], smart_ptr_player_01.get());
   cout << endl;
@@ -78,14 +96,9 @@ int main()
   cout << "~3.Builder born with parameters:" << endl;
   builder_ptr_unit_01_2->printUnitFields();
 
-  cout << " 4.builder_01 move to cell [1][1]:" << endl;
-  builder_ptr_unit_01->move(gameMap[1][1]);
+  cout << " 4.builder_01 move to cell [4][4]:" << endl;
+  builder_ptr_unit_01->move(gameMap[4][4]);
   cout << endl;
-
-  cout << " 5.builder_01 build BuilderFactory:" << endl;
-  Factory* builderFactory_01 = builder_ptr_unit_01->buildBuilderFactory();
-  builderFactory_01->printUnitFields();
-  cout<< endl;
 
   cout << " 5.builder_01 build MedicFactory:" << endl;
   Factory* medicFactory_01 = builder_ptr_unit_01->buildMedicFactory();
@@ -100,44 +113,15 @@ int main()
   cout << " 7.medic_01 heal builder_01:" << endl;
   medic_ptr_unit_01->heal(builder_ptr_unit_01);
   builder_ptr_unit_01->printUnitFields();
- 
- /* 
-  cout << " 8.Begin save all object Player 1" << endl;
-  smart_ptr_player_01->savePlayer();
-  cout << endl;
   
-  cout << "~8.Begin save all object Player 2" << endl;
-  smart_ptr_player_02->savePlayer();
-  cout << endl;
-*/
-
+  cout << " 8.Save all ObjectGame to file" << endl;
   all.saveGame();
   
   cout << " 9.Load all ObjectGame from file" << endl;
   all.loadGame();
-  
-/*  smart_ptr_player_01->loadPlayer();
+*/  
   cout << endl;
-  
-  cout << "~9.Load all ObjectGame from file" << endl;
-  smart_ptr_player_02->loadPlayer();
-  cout << endl;
-*/
-  
   cout << " 10.Clear memory" << endl;
-  
-//  delete medic_ptr_unit_01;
-//  delete medicFactory_01;
-//  delete builder_ptr_unit_01;
-//  delete builder_ptr_unit_01_2;
-//  delete startedBuilderFactory;
-//  delete startedBuilderFactory_2;
-  cout << endl;
-//  smart_ptr_player_01->printListOfObjectGame();
-  cout << endl;
-//  smart_ptr_player_02->printListOfObjectGame();
-  cout << endl;
-  all.clearGameMap(gameMap);
 
   return 0;
 }

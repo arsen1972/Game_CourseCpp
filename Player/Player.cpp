@@ -9,38 +9,120 @@
 #include "../Factory/BuilderFactory.h"
 #include "../Unit/Civil/Builder.h"
 #include "../ObjectGame/ObjectGame.h"
+#include "../Cell/GameMap.h"
 
 using std::cout;
 using std::endl;
+using std::string;
 using std::list;
+using std::map;
+using std::pair;
 using std::ofstream;
 using std::ifstream;
+using std::for_each;
 
 // *************************************** Player()
 Player::Player(string& n) : name(n)
 { 
+  // Factory* startedBuilderFactory = new BuilderFactory(gameMap[0][0], "builderFactory", this);
+  // this->addToListFactory(startedBuilderFactory);
+  string uT = "builderFactory";
+  Factory* ptr_factory = new BuilderFactory(gameMap[0][0], uT, this);
+//  addToListOfFactory(ptr_factory); //new BuilderFactory(gameMap[0][0], "builderFactory", this));
+  addToMapOfObjectGame(ptr_factory);
+//  addToListFactory(new BuilderFactory(gameMap[1][1], "builderFactory", this));
 }
 
 // *************************************** ~Player()
-Player::~Player() //std::for_each(listOfObjectGame.begin(), listOfObjectGame.end(), [](ObjectGame* ptr_objectGame){ delete (*ptr_objectGame);});
+Player::~Player()
 { 
-//  std::for_each(listOfObjectGame.begin(), listOfObjectGame.end(), [](ObjectGame* ptr_temp){ delete ptr_temp;});
-  list<ObjectGame*>::iterator it = listOfObjectGame.begin();
-  for(it; it != listOfObjectGame.end(); it++)
-  {
-    delete (*it);
-  }
-  cout << "   ~Player anigilized...  " << endl;
+//  for_each(listOfFactory.begin(), listOfFactory.end(), [](Factory* ptr_temp){ delete ptr_temp;});
+//  for_each(listOfUnitCIVIL.begin(), listOfUnitCIVIL.end(), [](UnitCIVIL* ptr_temp){ delete ptr_temp;});
   
+  map<int, ObjectGame*>::iterator it = mapOfObjectGame.begin();
+  for(it; it != mapOfObjectGame.end(); it++) delete (it->second);
+//   for_each(mapOfObjectGame.begin(), mapOfObjectGame.end(), [](ObjectGame* ptr_temp){ delete ptr_temp;});
+  
+  cout << "   ~Player anigilized...  " << endl;
 }
 
-// *************************************** addToList(shared_ptr <Factory> ptr_factory)
-void Player::addToList(ObjectGame* ptr_ObjectGame)
+// *************************************** addToMapOfObjectGame(ObjectGame*)
+void Player::addToMapOfObjectGame(ObjectGame* ptr_ObjectGame)
 {
-  listOfObjectGame.push_back(ptr_ObjectGame); 
-  cout << "   ptr_ObjectGame add to list of ObjectGame" << endl;
+  mapOfObjectGame.insert(pair<int, ObjectGame*> (ptr_ObjectGame->id, ptr_ObjectGame));
+//  cout << "   ptr_ObjectGame add to list of ObjectGame" << endl;
   return;
 }
+
+// ******************************************************  getMapOfObjectGame()
+map<int, ObjectGame*> Player::getMapOfObjectGame() const
+{ return mapOfObjectGame;
+}
+
+// ******************************************************** printMapOfObjectGame()
+void Player::printMapOfObjectGame() const
+{ 
+  map<int, ObjectGame*>::const_iterator it = mapOfObjectGame.begin();
+  for (it; it != mapOfObjectGame.end(); it++)
+  { // cout << "Тип юнита: " << it->second->unitType << ". Его идентификатор id = " << it->first << endl;
+    cout << it->second->unitType << "\tid = " << it->first << endl;    
+  }
+  // mapOfObjectGame.clear();
+  // cout << "   Number elements of mapOfObjectGame = " << mapOfObjectGame.size() << endl;
+}
+
+/*
+// *************************************** addToListOfFactory(Factory*)
+void Player::addToListOfFactory(Factory* ptr_Factory)
+{
+  listOfFactory.push_back(ptr_Factory); 
+//  cout << "   ptr_Factory to list of Factory" << endl;
+  return;
+}
+
+// ******************************************************  getListOfObjectGame()
+list<Factory*> Player::getListOfFactory() const
+{ return listOfFactory;
+}
+
+// ******************************************************** printListOfObjectGame()
+void Player::printListOfFactory() const
+{ 
+//  cout << "   Number elements of listOfObjectGame = " << listOfObjectGame.size() << endl;
+  list<Factory*>::const_iterator it = listOfFactory.begin();
+  for (it; it!= listOfFactory.end(); it++)
+  { cout << (*it)->getUnitType() << " id = " << (*it)->id << endl;
+  }
+  // listOfFactory.clear();
+  // cout << "   Number elements of listOfFactory = " << listOfFactory.size() << endl;
+}
+
+
+// *************************************** addToListOfUnitCIVIL(UnitCIVIL*)
+void Player::addToListOfUnitCIVIL(UnitCIVIL* ptr_UnitCIVIL)
+{
+  listOfUnitCIVIL.push_back(ptr_UnitCIVIL); 
+//  cout << "   ptr_UnitCIVIL add to list of UnitCIVIL" << endl;
+  return;
+}
+
+// ******************************************************  getListOfUnitCIVIL()
+list<UnitCIVIL*> Player::getListOfUnitCIVIL() const
+{ return listOfUnitCIVIL;
+}
+
+// ******************************************************** printListOfUnitCIVIL()
+void Player::printListOfUnitCIVIL() const
+{ 
+//  cout << "   Number elements of listOfUnitCIVIL = " << listOfUnitCIVIL.size() << endl;
+  list<UnitCIVIL*>::const_iterator it = listOfUnitCIVIL.begin();
+  for (it; it!= listOfUnitCIVIL.end(); it++)
+  { cout << (*it)->getUnitType() << " id = " << (*it)->id << endl;
+  }
+  // listOfUnitCIVIL.clear();
+  // cout << "   Number elements of listOfUnitCIVIL = " << listOfUnitCIVIL.size() << endl;
+}
+*/
 
 // ****************************************************  getName()
 string Player::getName() const
@@ -51,10 +133,10 @@ void Player::savePlayer() const
 {
   ofstream fout;
   
-  for (list<ObjectGame*>::const_iterator it = listOfObjectGame.begin(); it != listOfObjectGame.end(); ++it)
+  for (map<int, ObjectGame*>::const_iterator it = mapOfObjectGame.begin(); it != mapOfObjectGame.end(); ++it)
   { 
     fout.open(PATH_OF_SAVE, ofstream::app);
-    fout << (*it)->toString();
+//    fout << (*it)->second->toString();
     fout.close();
     cout << "   done" << endl;
   }
@@ -63,18 +145,17 @@ void Player::savePlayer() const
 // ***************************************************** loadPlayer()
 void Player::loadPlayer()
 {
-  #include "../Cell/GameMap.h"
   json j;
   string tempString;
-  this->listOfObjectGame.clear();
+  this->mapOfObjectGame.clear();
+  
   ifstream fin(PATH_OF_SAVE);
   while (getline(fin, tempString))
   {
     j = json::parse(tempString);
     if (j.at("unitType") == "builder")
     { 
-      cout << "\n   builder is load!" << endl;
-      this->addToList(new Builder(
+      this->addToMapOfObjectGame(new Builder(
       j.at("status"), 
       j.at("typeOfTerrain"), 
       j.at("unitType"), 
@@ -83,12 +164,12 @@ void Player::loadPlayer()
       j.at("defence"),
       gameMap[j.at("y")][j.at("x")],
       this));
+      cout << "\n   builder is load!" << endl;
     }
     
     else if (j.at("unitType") == "medic")
     {
-      cout << "\n   medic is load!" << endl;
-      this->addToList(new Builder(
+      this->addToMapOfObjectGame(new Medic(
       j.at("status"), 
       j.at("typeOfTerrain"), 
       j.at("unitType"), 
@@ -97,37 +178,41 @@ void Player::loadPlayer()
       j.at("defence"),
       gameMap[j.at("y")][j.at("x")],
       this));
+      cout << "\n   medic is load!" << endl;
     }
     
     else if (j.at("unitType") == "medicFactory")
     {
-      cout << "\n   medicFactory is load!" << endl;
-      this->addToList
+      this->addToMapOfObjectGame
       (new MedicFactory(
       gameMap[j.at("y")][j.at("x")],
       j.at("unitType"),
       this));
+      cout << "\n   medicFactory is load!" << endl;
     }
     
-    else if (j.at("unitType") == "builderFactory")
+    else if (j.at("unitType") == "medicFactory")
     {
-      cout << "\n   buildFactory is load!" << endl;
-      this->addToList
+      this->addToMapOfObjectGame
       (new MedicFactory(
       gameMap[j.at("y")][j.at("x")],
       j.at("unitType"),
       this));
+      cout << "\n   buildFactory is load!" << endl;
     }
   }
   fin.close();
 }
-// ******************************************************** printListOfObjectGame()
-void Player::printListOfObjectGame()
-{ 
-  cout << "   Number elements of listOfObjectGame = " << listOfObjectGame.size() << endl;
-  listOfObjectGame.clear();
-  cout << "   Number elements of listOfObjectGame = " << listOfObjectGame.size() << endl;
+
+// *******************************************************  printPlayerField()
+void Player::printPlayerField() const
+{
+  cout << " Данные нового игрока: " << endl;
+  cout << "   Name: " << name << endl;
+  cout << endl;
 }
+
+
 
 
 

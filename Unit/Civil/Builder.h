@@ -12,6 +12,7 @@
 #include "../../Cell/Cell.h"
 
 class BuilderFactory;
+class MedicFactory;
 
 class Builder : public UnitCIVIL // typedef Unit<CIVIL, TypeOfTerrain> UnitCIVIL;
 {
@@ -30,11 +31,15 @@ public:
   void move(Cell*) override;
   void save() const override;
   std::string toString() const override;
+  void doAction() override;
       
 // *************************************************  add method() 
 
   Factory* buildBuilderFactory() override;
   Factory* buildMedicFactory() override; 
+
+//  void buildBuilderFactory() override;
+//  void buildMedicFactory() override; 
   
 protected:
   int getHealth() const override;

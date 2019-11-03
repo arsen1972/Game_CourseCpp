@@ -29,14 +29,14 @@ MedicFactory::~MedicFactory()
 }
 
 // *****************************************************************   getUnit()
-UnitCIVIL* MedicFactory::getUnit(Status st, TypeOfTerrain tOT, std::string & unitType, int h, int d, bool def, Cell* c, Player* pl)
+UnitCIVIL* MedicFactory::getUnit(Status st, TypeOfTerrain tOT, std::string & unitType, int h, int d, bool def, Cell* c, Player* player)
 {
   Medic* ptr_unit = nullptr;
-  if(unitType == "medic") ptr_unit = new Medic(st, tOT, unitType, h, d, def, this->getCell(), pl);
+  if(unitType == "medic") ptr_unit = new Medic(st, tOT, unitType, h, d, def, this->getCell(), player);
   
   cout << "   Medic created!" << endl;
-  pl->addToList(ptr_unit);
-  
+//  pl->addToListOfUnitCIVIL(ptr_unit);
+  player->addToMapOfObjectGame(ptr_unit);
   return ptr_unit;
 }
 
@@ -79,4 +79,10 @@ void MedicFactory::printUnitFields() const
   cout << "   unitType is \t" << this->unitType << endl;
   cout << "   Object coordinates: x = " << this->getCell()->getX() << ", y = " << this->getCell()->getY() << endl;
   cout << endl;
+}
+
+// ***************************************************  void doAction()
+void MedicFactory::doAction()
+{
+  cout << "MedicFactory doAction()" << endl;
 }

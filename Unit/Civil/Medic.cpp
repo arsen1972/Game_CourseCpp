@@ -135,6 +135,13 @@ void Medic::save() const
 { 
 
 }
+
+// ***************************************************  void doAction()
+void Medic::doAction()
+{
+  cout << "Medic doAction()" << endl;
+}
+
 /*
 // **************************************************** UnitCIVIL* load()
 UnitCIVIL* Medic::load()

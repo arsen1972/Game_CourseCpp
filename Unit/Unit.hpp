@@ -218,11 +218,12 @@ public:
 //  virtual Unit<CIVIL, TOT>* load();
   virtual Factory* buildBuilderFactory();
   virtual Factory* buildMedicFactory();
+  virtual string getUnitType() const;
 
 protected:          // ***********************  methods()
     
   virtual Status getStatus() const;
-  virtual string getUnitType() const;
+
   
   virtual int getHealth() const;
   virtual void setHealth(int);
@@ -239,7 +240,7 @@ protected:          // ***********************  methods()
  
 private:                      // ***********************  fields  
   Status status;
-  string unitType;
+//  string unitType;
   int health;
   int damage;
   bool defence;
@@ -254,7 +255,7 @@ Unit<CIVIL, TOT>::Unit()
 // ****************************************************   Constructor/destructor
 template <typename TOT> 
 Unit<CIVIL, TOT>::Unit (Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c, Player* pl) :
- status(st), typeOfTerrain(tOT), unitType(uT), health(h), damage(d), defence(def), cell(c), player(pl)
+ status(st), typeOfTerrain(tOT), health(h), damage(d), defence(def), cell(c), player(pl), ObjectGame(uT)
 { //cout << "   Unit is born" << endl;
 }
 

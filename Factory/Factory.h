@@ -21,11 +21,14 @@ public:
   Factory();
   Factory(Cell*);
   Factory(Cell*, Player*);
+  Factory(Cell*, string&, Player*);
   virtual ~Factory() = 0;
   virtual UnitCIVIL* getUnit(Status, TypeOfTerrain, string&, int, int, bool, Cell*, Player*);
   virtual void save();
   virtual string toString() const;
   virtual void printUnitFields() const;
+  virtual string getUnitType() const override;
+  virtual void doAction() override;
   
 protected:
   Cell* getCell() const;

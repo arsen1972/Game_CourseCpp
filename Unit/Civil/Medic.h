@@ -25,6 +25,7 @@ public:
   void move(Cell*) override;
   void save() const override;
   std::string toString() const override;
+  void doAction() override;
 
 protected:
   int getHealth() const override;

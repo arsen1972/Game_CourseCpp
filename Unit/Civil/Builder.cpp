@@ -20,6 +20,7 @@ using std::ofstream;
 using std::ifstream;
 
 class BuilderFactory;
+class MedicFactory;
 
 // ***************************************************** Builder(Status, TypeOfTerrainstring, int, int, bool, Cell*)
 Builder::Builder(Status st, TypeOfTerrain tOT, string uT, int h, int d, bool def, Cell* c, Player* pl) :
@@ -99,7 +100,7 @@ void Builder::move(Cell* c)
 // ***************************************************** printUnitFields()
 void Builder::printUnitFields() const
 {
-  cout << "   unitType is \t" << this->getUnitType() << endl;
+  cout << "   unitType is \t" << this->unitType << endl;
   cout << "   Health = \t" << this->getHealth() << endl;
 //  cout << "   Damage = \t" << this->getDamage() << endl;
 //  cout << "   Defence = \t" << this->getDefence() << endl;
@@ -137,16 +138,15 @@ void Builder::save() const
 
 }
 
-// метод строительства фабрики BuilderFactory* buildBuilderFactory()
 // **************************************************** buildBuilderFactory()
 Factory* Builder::buildBuilderFactory()
 { 
-  BuilderFactory* newDep;
-  newDep = new BuilderFactory(this->getCell(), "builderFactory", this->getPlayer());
+  string uT = "builderFactory";
+  BuilderFactory* ptr_Factory = new BuilderFactory(this->getCell(), uT, this->getPlayer());
   cout << "   Message from \"Builder\": New BuilderFactory is DONE!!!!" << endl;
-  this->getPlayer()->addToList(newDep);
-  
-  return newDep;
+//  this->getPlayer()->addToListOfFactory(ptr_Factory);
+  this->getPlayer()->addToMapOfObjectGame(ptr_Factory);
+  return ptr_Factory;
 }
 
 // **************************************************** buildMedicFactory()
@@ -155,6 +155,13 @@ Factory* Builder::buildMedicFactory()
   MedicFactory* newDep;
   newDep = new MedicFactory(this->getCell(), "medicFactory", this->getPlayer());
   cout << "   Message from \"Builder\": New MedicFactory is DONE!!!!" << endl;
-  this->getPlayer()->addToList(newDep);
+//  this->getPlayer()->addToListOfFactory(newDep);
+//  this->getPlayer()->addToListOfObjectGame(ptr_Factory);
   return newDep;
+}
+
+// ***************************************************  void doAction()
+void Builder::doAction()
+{
+  cout << "Bulder doAction()" << endl;
 }

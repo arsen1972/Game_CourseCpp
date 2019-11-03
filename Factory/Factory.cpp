@@ -23,7 +23,11 @@ Factory::Factory(Cell* c) : cell(c)
 Factory::Factory(Cell* c, Player* pl) : cell(c), player(pl)
 { 
 } 
- 
+
+// *****************************************************************     Factory(Cell*, string&, Player*)
+Factory::Factory(Cell* c, string& uT, Player* pl) : ObjectGame(uT), cell(c), player(pl)
+{ 
+}  
 // *****************************************************************   ~Factory()
 Factory::~Factory()
 { cout << "   ~Factory is destroy" << endl;
@@ -56,6 +60,11 @@ void Factory::save()
 { std::cout << "   Factory is save" << std::endl;
 }
 
+// **************************************************** getUnitType()
+string Factory::getUnitType() const
+{ cout << "Factory Unit Type" << endl;
+}
+
 // **************************************************** printUnitFields()
 void Factory::printUnitFields() const
 { 
@@ -63,4 +72,10 @@ void Factory::printUnitFields() const
   cout << "   unitType is \t" << "Base Factory" << endl;
   cout << "   Object coordinates: x = " << this->getCell()->getX() << ", y = " << this->getCell()->getY() << endl;
   cout << endl;
+}
+
+// ***************************************************  void doAction()
+void Factory::doAction()
+{
+  cout << "Factory doAction()" << endl;
 }

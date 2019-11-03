@@ -21,6 +21,7 @@ public:
   void save() const override;
   string toString() const override;
   void printUnitFields() const override;
+  void doAction() override;
   
 private:
   string unitType;

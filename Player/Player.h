@@ -17,7 +17,7 @@ using std::cout;
 using std::endl;
 using std::string;
 using std::list;
-
+using std::map;
 
 class Player
 {
@@ -26,15 +26,27 @@ class Player
   Player(string &);
   virtual ~Player();
   string getName() const;
-  void addToList(ObjectGame*);
   void savePlayer() const;
   void loadPlayer();
-  void printListOfObjectGame();
-
+  void printPlayerField() const;
+  
+  void addToMapOfObjectGame(ObjectGame*);
+//  void addToListOfFactory(Factory*);
+//  void addToListOfUnitCIVIL(UnitCIVIL*);
+  
+  void printMapOfObjectGame() const;
+//  void printListOfFactory() const;
+//  void printListOfUnitCIVIL() const;
+  
+  map<int, ObjectGame*> getMapOfObjectGame() const;
+//  list<Factory*> getListOfFactory() const;
+//  list<UnitCIVIL*> getListOfUnitCIVIL() const;
   
   private:
   string name;
-  list<ObjectGame*> listOfObjectGame;
+  map<int, ObjectGame*> mapOfObjectGame;
+//  list<Factory*> listOfFactory;
+//  list<UnitCIVIL*> listOfUnitCIVIL;
   
   protected:
 
